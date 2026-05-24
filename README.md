@@ -35,10 +35,13 @@ O site vai ficar em: **https://adrianoapmartins.github.io/simoesmadeira2026**
 
 ## Palavra-passe
 
-A palavra-passe é **`bonitos`** (em minúsculas).
+O site abre com uma palavra-passe simples, definida no topo do `app.js`, na
+constante `PASSWORD`. Não está escrita aqui de propósito — o repositório é
+público. Para a mudares, edita o valor de `PASSWORD` no `app.js`.
 
-⚠️ É um gate cosmético, não segurança real (está no JavaScript). Para uma viagem
-em família privada está bem; não uses para nada confidencial.
+⚠️ É um gate cosmético, não segurança real (está no JavaScript, do lado do
+cliente). Para uma viagem em família privada está bem; não uses para nada
+confidencial.
 
 ## Preview no WhatsApp
 
