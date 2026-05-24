@@ -151,7 +151,6 @@ const familias = [
     name: 'Alexandra',
     quarto: 'Twin Family',
     hotel: 1455,
-    carroProprio: true,
     pessoas: [
       { nome: 'Adriano de Assis Pinheiro Martins', idade: 38, cat: 'adulto', voo: VOO_ADULTO },
       { nome: 'Ana Alexandra Simões Fernandes', idade: 38, cat: 'adulto', voo: VOO_ADULTO },
@@ -163,7 +162,6 @@ const familias = [
     name: 'Farrulo',
     quarto: 'Twin Classic Pool View',
     hotel: 1372,
-    carroProprio: false,
     pessoas: [
       { nome: 'Manuel Ribeiro Fernandes', idade: 59, cat: 'adulto', voo: VOO_ADULTO },
       { nome: 'Maria da Conceição Ribeiro Simões', idade: 58, cat: 'adulto', voo: VOO_ADULTO },
@@ -173,7 +171,6 @@ const familias = [
     name: 'Pedro',
     quarto: 'Twin Classic Pool View (single)',
     hotel: 1170,
-    carroProprio: false,
     pessoas: [
       { nome: 'Pedro Manuel Simões Fernandes', idade: 31, cat: 'adulto', voo: VOO_ADULTO },
     ],
@@ -182,7 +179,6 @@ const familias = [
     name: 'Patricia',
     quarto: 'Twin Family',
     hotel: 1455,
-    carroProprio: true,
     pessoas: [
       { nome: 'Patrícia Isabel Simões de Oliveira', idade: 37, cat: 'adulto', voo: VOO_ADULTO },
       { nome: 'Michael Sapateiro Luís', idade: 41, cat: 'adulto', voo: VOO_ADULTO },
@@ -194,7 +190,6 @@ const familias = [
     name: 'Carmo',
     quarto: 'Twin Classic Pool View',
     hotel: 1372,
-    carroProprio: false,
     pessoas: [
       { nome: 'Manuel Pereira de Oliveira', idade: 67, cat: 'adulto', voo: VOO_ADULTO },
       { nome: 'Maria do Carmo Ribeiro Simões', idade: 61, cat: 'adulto', voo: VOO_ADULTO },
@@ -204,7 +199,6 @@ const familias = [
     name: 'Luís',
     quarto: 'Twin Classic Pool View',
     hotel: 1372,
-    carroProprio: true,
     pessoas: [
       { nome: 'Luís Manuel Simões Oliveira', idade: 33, cat: 'adulto', voo: VOO_ADULTO },
       { nome: 'João Pedro Simões Oliveira', idade: 22, cat: 'adulto', voo: VOO_ADULTO },
@@ -214,7 +208,6 @@ const familias = [
     name: 'Ana Maria',
     quarto: 'Twin Classic Pool View',
     hotel: 1372,
-    carroProprio: true,
     pessoas: [
       { nome: 'Filipe Daniel Fernandes Rodrigues', idade: 46, cat: 'adulto', voo: VOO_ADULTO },
       { nome: 'Ana Maria Ribeiro Simões', idade: 60, cat: 'adulto', voo: VOO_ADULTO },
@@ -224,7 +217,6 @@ const familias = [
     name: 'Jorge',
     quarto: 'Twin Family (3 pess)',
     hotel: 1790,
-    carroProprio: true,
     pessoas: [
       { nome: 'Tiago Simões Silva', idade: 17, cat: 'adulto', voo: VOO_ADULTO },
       { nome: 'Maria de Fátima Ribeiro Simões', idade: 48, cat: 'adulto', voo: VOO_ADULTO },
@@ -235,7 +227,6 @@ const familias = [
     name: 'Jorginho',
     quarto: 'Twin Classic Pool View',
     hotel: 1372,
-    carroProprio: false,
     pessoas: [
       { nome: 'Jorge Miguel Simões da Silva', idade: 25, cat: 'adulto', voo: VOO_ADULTO },
       { nome: 'Susete Daniela Silva Loureiro', idade: 25, cat: 'adulto', voo: VOO_ADULTO },
