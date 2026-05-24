@@ -2495,3 +2495,17 @@ body {
   color: #7a5418;
   line-height: 1.45;
 }
+
+/* Etiqueta de capacidade do restaurante */
+.tl-lunch-cap {
+  display: inline-block;
+  margin: 3px 0 2px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  background: #eef3ec;
+  color: var(--green-deep);
+  border: 1px solid #d4e2cd;
+}

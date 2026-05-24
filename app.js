@@ -402,19 +402,19 @@ const programa = [
     theme: 'Chegada · Funchal',
     prog: 'Chegada do grupo 1 de manhã. À tarde, primeiro contacto com o Funchal: Mercado dos Lavradores, teleférico do Monte e a descida nos famosos Carros de Cesto.',
     horario: [
-      { h: '08:30', txt: 'Aterragem do grupo 1 no aeroporto (voo EJU6863). Mini-bus recolhe o grupo.' },
-      { h: '09:30', txt: 'Check-in / largar malas no Pestana Carlton (ou guardar se ainda não houver quarto).' },
+      { h: '08:30', txt: 'Aterragem do grupo 1 (voo EJU6863). Mini-bus recolhe o grupo.' },
+      { h: '09:30', txt: 'Largar malas no Pestana Carlton (check-in só às 15h; guardam-se as malas).' },
       { h: '10:30', txt: 'Saída do hotel para o Mercado dos Lavradores.' },
       { h: '11:00', txt: 'Mercado dos Lavradores — frutas exóticas, peixe, flores.' },
       { h: '13:00', txt: 'Almoço no Funchal (ver sugestões).' },
       { h: '15:00', txt: 'Teleférico do Monte (subida) + Jardim Tropical do Monte.' },
-      { h: '16:30', txt: 'Descida nos Carros de Cesto do Monte até Livramento.' },
-      { h: '18:00', txt: 'Regresso ao hotel. Tarde/noite livre nas piscinas.' },
+      { h: '16:30', txt: 'Descida nos Carros de Cesto do Monte até ao Livramento.' },
+      { h: '18:00', txt: 'Regresso ao hotel. Resto da tarde livre nas piscinas.' },
       { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
     ],
     almoco: [
-      { nome: 'Peixaria no Mercado', desc: 'Mesmo no mercado, peixe e marisco fresco, esplanada animada. ~€20-40/pessoa.' },
-      { nome: '5 Sentidos', desc: 'Hidden gem escondido num beco do centro histórico, celebra produtos locais.' },
+      { nome: 'Gavião Novo (centro histórico)', desc: 'Casa de peixe e marisco bem conceituada na Rua de Santa Maria, com salas amplas. Aceita reserva — pedir mesa para o grupo.', grupo: 'Bom para grupos · reservar' },
+      { nome: 'Peixaria no Mercado', desc: 'Mesmo no mercado, peixe fresco e esplanada animada (~€20-40/pessoa). Espaço mais limitado — confirmar mesa para 17 ao reservar.', grupo: 'Reservar e confirmar capacidade' },
     ],
     locais: [
       { nome: 'Mercado dos Lavradores', placeId: PLACES.mercado },
@@ -428,9 +428,9 @@ const programa = [
     prog: 'De manhã passamos pelo aeroporto para receber a família do Jorge. Depois seguimos para leste: Museu da Baleia no Caniçal e os miradouros da Ponta de São Lourenço.',
     horario: [
       { h: '08:45', txt: 'Saída do hotel. Passagem pelo aeroporto para buscar a família do Jorge (voo EJU6831, chega 09:05).' },
-      { h: '09:30', txt: 'Grupo completo reunido. Seguimos para o Caniçal.' },
+      { h: '09:30', txt: 'Grupo completo (22). Seguimos para o Caniçal.' },
       { h: '10:30', txt: 'Museu da Baleia (Caniçal) — história da caça à baleia e conservação.' },
-      { h: '12:30', txt: 'Almoço no Caniçal (ver sugestões).' },
+      { h: '12:30', txt: 'Almoço no Caniçal / Machico (ver sugestões).' },
       { h: '14:30', txt: 'Ponta de São Lourenço — miradouros e paisagem vulcânica.' },
       { h: '17:30', txt: 'Regresso ao hotel.' },
       { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
@@ -441,8 +441,8 @@ const programa = [
       esforco: 'Moderado · sobe e desce, exposto ao sol e vento, sem sombra. Com crianças pequenas e bebé, fazer só o início até ao primeiro miradouro (fácil e plano).',
     },
     almoco: [
-      { nome: 'O Recanto (Caniçal)', desc: 'Gem local perto da Ponta de São Lourenço. Buffet de almoço, lapas, camarão. Menu ~€8.' },
-      { nome: 'Talho do Caniço', desc: 'Experiência autêntica: compra-se a carne e grelha-se. Come-se em pé, ambiente local. Só qui-sáb.' },
+      { nome: 'Mercado Velho (Machico)', desc: 'Esplanada ampla junto ao ribeiro, no caminho para a Ponta. Cozinha madeirense, espaço para grupos.', grupo: 'Bom para grupos · reservar' },
+      { nome: 'O Recanto (Caniçal)', desc: 'Gem local perto da Ponta de São Lourenço, buffet de almoço a bom preço. Espaço limitado — só com reserva confirmada para 22.', grupo: 'Pequeno · confirmar 22 lugares' },
     ],
     locais: [
       { nome: 'Museu da Baleia · Caniçal', placeId: PLACES.museuBaleia },
@@ -468,8 +468,8 @@ const programa = [
       esforco: 'O troço até às Queimadas é fácil e plano. A Levada do Caldeirão Verde completa é longa e tem túneis — não recomendada com o bebé e crianças pequenas. Sugestão: ficar pela zona das Queimadas (relvado, casas de colmo) e fazer só um bocadinho da levada.',
     },
     almoco: [
-      { nome: 'Adega do Compadre (Santana)', desc: 'Gem local na rua principal, em frente às casas típicas. Comida caseira, sopa de trigo, espetada, preços ótimos.' },
-      { nome: 'Quinta do Furão', desc: 'Esplanada com vista de mar deslumbrante. Cozinha regional cuidada (rabo de boi, risotto de cogumelos). Mais caro mas memorável.' },
+      { nome: 'Quinta do Furão', desc: 'Vista de mar deslumbrante, duas salas grandes e terraço para grupos. Cozinha regional cuidada. Email de reservas próprio (~€25/pessoa).', grupo: 'Ideal para grupos · reservar por email' },
+      { nome: 'Adega do Compadre (Santana)', desc: 'Gem local na rua principal, comida caseira, preços ótimos. Mais pequeno — confirmar mesa para 22 ao reservar.', grupo: 'Pequeno · confirmar 22 lugares' },
     ],
     locais: [
       { nome: 'Casas Típicas de Santana', placeId: PLACES.santana },
@@ -485,14 +485,14 @@ const programa = [
       { h: '09:30', txt: 'Saída do hotel para o Cabo Girão.' },
       { h: '10:00', txt: 'Cabo Girão — skywalk de vidro, uma das falésias mais altas da Europa.' },
       { h: '11:30', txt: 'Câmara de Lobos — vila piscatória, miradouro, poncha.' },
-      { h: '13:00', txt: 'Almoço de espetadas no Estreito de Câmara de Lobos (ver sugestões).' },
+      { h: '13:00', txt: 'Almoço de espetadas no Estreito / Câmara de Lobos (ver sugestões).' },
       { h: '15:30', txt: 'Praia da Calheta — areia (importada) e águas calmas, boa para as crianças.' },
       { h: '18:00', txt: 'Regresso ao hotel.' },
       { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
     ],
     almoco: [
-      { nome: 'Casa de Santo António (Estreito)', desc: 'O mais famoso da ilha para espetada, aberto desde 1966, ainda na família fundadora. Espetada em pau de loureiro com milho frito.' },
-      { nome: 'Adega da Quinta (Estreito)', desc: 'Espetada com vista soberba sobre Câmara de Lobos, no antigo lagar da Quinta do Estreito. Acolhedor.' },
+      { nome: 'O Lagar (Câmara de Lobos)', desc: 'Espetada em pau de louro num espaço enorme: salas de 80 a 350 lugares, vocacionado para grupos e eventos. A aposta mais segura para 22.', grupo: 'Excelente para grupos · reservar' },
+      { nome: 'Vila da Carne (Câmara de Lobos)', desc: 'Espetada de qualidade com vista para a baía, restaurante amplo e moderno. Aceita reserva no TheFork.', grupo: 'Bom para grupos · reservar' },
     ],
     locais: [
       { nome: 'Cabo Girão', placeId: PLACES.caboGirao },
@@ -518,8 +518,8 @@ const programa = [
       esforco: 'Fácil · terreno plano e largo, ideal para todas as idades. Pode estar húmido/enevoado — levar calçado fechado. O autocarro acede pela ER209.',
     },
     almoco: [
-      { nome: 'Cachalote (Porto Moniz)', desc: 'Sobre as rochas junto às piscinas naturais, vista para o mar. Peixe fresco, lapas, sopa de peixe.' },
-      { nome: 'Orca / Restaurante das Piscinas', desc: 'Junto às piscinas, prático e com boa relação qualidade-preço. Espetada e peixe do dia.' },
+      { nome: 'Cachalote (Porto Moniz)', desc: 'Sobre as rochas junto às piscinas naturais, 650 lugares e serviço de grupos/banquetes. Arroz de lapas premiado. Perfeito para 22.', grupo: 'Excelente para grupos · reservar' },
+      { nome: 'Orca (Porto Moniz)', desc: 'Junto às piscinas, prático, boa relação qualidade-preço. Espetada e peixe do dia. Reservar para grupo.', grupo: 'Bom para grupos · reservar' },
     ],
     locais: [
       { nome: 'Paúl da Serra', placeId: PLACES.paulSerra },
@@ -532,13 +532,28 @@ const programa = [
     theme: 'Partida (grupo 1)',
     prog: 'Último dia do grupo 1. Manhã livre para piscinas ou compras de última hora. Transfer para o aeroporto. A família do Jorge fica até dia 11.',
     horario: [
-      { h: '09:00', txt: 'Pequeno-almoço e manhã livre (piscinas, passeio pela marginal, compras).' },
+      { h: '09:00', txt: 'Pequeno-almoço e manhã livre (piscinas, marginal, compras).' },
       { h: '12:00', txt: 'Check-out do hotel.' },
-      { h: '12:30', txt: 'Almoço leve no Funchal antes de seguir para o aeroporto (livre).' },
+      { h: '12:30', txt: 'Almoço leve no Funchal antes do aeroporto (livre).' },
       { h: '13:15', txt: 'Transfer do grupo 1 para o aeroporto (mini-bus).' },
       { h: '15:15', txt: 'Voo de partida do grupo 1 (EJU6834).' },
     ],
-    nota: 'A família do Jorge continua na Madeira até sexta 11/9 (voo EJU6840, 16:20). O transfer deles no dia 11 ainda está por combinar.',
+    nota: 'A família do Jorge continua na Madeira até sexta 11/9. Têm o dia 10 e a manhã de 11 livres para explorar o Funchal a pé.',
+    locais: [
+      { nome: 'Aeroporto da Madeira (FNC)', placeId: PLACES.airport },
+    ],
+  },
+  {
+    day: 'Sex 11/9',
+    theme: 'Partida (família Jorge)',
+    prog: 'Último dia da família do Jorge. Manhã livre e partida à tarde, de táxi para o aeroporto.',
+    horario: [
+      { h: '10:00', txt: 'Manhã livre no Funchal (marginal, compras de lembranças).' },
+      { h: '12:00', txt: 'Check-out do hotel.' },
+      { h: '14:00', txt: 'Táxi do hotel para o aeroporto (~20-30 min; 2 táxis para 5 pessoas + malas).' },
+      { h: '16:20', txt: 'Voo de partida da família do Jorge (EJU6840).' },
+    ],
+    nota: 'A família do Jorge vai de táxi para o aeroporto (o mini-bus não cobre este dia). Para 5 pessoas com bagagem são precisos 2 táxis normais, ou pode pedir-se um táxi grande / carrinha.',
     locais: [
       { nome: 'Aeroporto da Madeira (FNC)', placeId: PLACES.airport },
     ],
@@ -612,10 +627,11 @@ programa.forEach((d, i) => {
       ${d.almoco.map(r => `
         <div class="tl-lunch-item">
           <p class="tl-lunch-name">${r.nome}</p>
+          ${r.grupo ? `<span class="tl-lunch-cap">${r.grupo}</span>` : ''}
           <p class="tl-lunch-desc">${r.desc}</p>
         </div>
       `).join('')}
-      <p class="tl-lunch-foot">O jantar é sempre no hotel (meia pensão).</p>
+      <p class="tl-lunch-foot">Com 22 pessoas, reservar é essencial. O jantar é sempre no hotel (meia pensão).</p>
     </div>
   ` : '';
 
