@@ -222,72 +222,48 @@
     <ol class="timeline" id="timeline"></ol>
 
     <h3 class="section-h">Voos easyJet</h3>
-    <div class="flights">
-      <article class="flight">
-        <div class="flight-header">
-          <span class="flight-route">Porto → Funchal</span>
-          <span class="flight-num">EJU6863</span>
-        </div>
-        <div class="flight-times">
-          <div class="flight-time">
-            <p class="time-hr">06:25</p>
-            <p class="time-day">sáb 5/9</p>
-            <p class="time-airport">OPO</p>
-          </div>
-          <div class="flight-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M16 6l6 6-6 6"/></svg>
-          </div>
-          <div class="flight-time">
-            <p class="time-hr">08:30</p>
-            <p class="time-day">sáb 5/9</p>
-            <p class="time-airport">FNC</p>
-          </div>
-        </div>
-      </article>
+    <p class="section-intro">Dois grupos com datas diferentes. Códigos de reserva e números de voo para o check-in e o aeroporto.</p>
 
-      <article class="flight">
-        <div class="flight-header">
-          <span class="flight-route">Funchal → Porto</span>
-          <span class="flight-num">EJU6834</span>
+    <div class="flight-ref">
+      <div class="flight-ref-head">
+        <span class="flight-ref-group">Grupo 1 · 16 pessoas</span>
+        <span class="flight-ref-code">KCL63HT</span>
+      </div>
+      <div class="flight-ref-legs">
+        <div class="flight-ref-leg">
+          <span class="frl-dir">Ida · sáb 5/9</span>
+          <span class="frl-num">EJU6863</span>
+          <span class="frl-time">06:25 → 08:30 · OPO → FNC</span>
         </div>
-        <div class="flight-times">
-          <div class="flight-time">
-            <p class="time-hr">15:15</p>
-            <p class="time-day">qui 10/9</p>
-            <p class="time-airport">FNC</p>
-          </div>
-          <div class="flight-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M16 6l6 6-6 6"/></svg>
-          </div>
-          <div class="flight-time">
-            <p class="time-hr">17:15</p>
-            <p class="time-day">qui 10/9</p>
-            <p class="time-airport">OPO</p>
-          </div>
-        </div>
-      </article>
-
-      <div class="flight-prices">
-        <div class="fp-row">
-          <span class="fp-cat">Adulto · 18 bilhetes</span>
-          <span class="fp-val">€176,95 / pessoa</span>
-        </div>
-        <div class="fp-row">
-          <span class="fp-cat">Criança · 3 bilhetes</span>
-          <span class="fp-val">€176,95 / pessoa</span>
-        </div>
-        <div class="fp-row">
-          <span class="fp-cat">Bebé · 1 bilhete</span>
-          <span class="fp-val">€62,00</span>
-        </div>
-        <div class="fp-row fp-total">
-          <span class="fp-cat">Total dos voos</span>
-          <span class="fp-val">€3 777,95</span>
+        <div class="flight-ref-leg">
+          <span class="frl-dir">Volta · qui 10/9</span>
+          <span class="frl-num">EJU6834</span>
+          <span class="frl-time">15:15 → 17:15 · FNC → OPO</span>
         </div>
       </div>
-
-      <p class="flight-note">Tarifa Light · mala de cabine pequena incluída.</p>
     </div>
+
+    <div class="flight-ref">
+      <div class="flight-ref-head">
+        <span class="flight-ref-group">Grupo 2 · 5 pessoas</span>
+        <span class="flight-ref-code">KCL63SQ</span>
+      </div>
+      <div class="flight-ref-legs">
+        <div class="flight-ref-leg">
+          <span class="frl-dir">Ida · dom 6/9</span>
+          <span class="frl-num">EJU6831</span>
+          <span class="frl-time">07:00 → 09:05 · OPO → FNC</span>
+        </div>
+        <div class="flight-ref-leg">
+          <span class="frl-dir">Volta · sex 11/9</span>
+          <span class="frl-num">EJU6840</span>
+          <span class="frl-time">16:20 → 18:20 · FNC → OPO</span>
+        </div>
+      </div>
+      <p class="flight-ref-note">Grupo 2 (família do Jorge): Tiago, Fátima, Jorge, Jorge Miguel e Susete. O Pedro voa à parte, de outro local.</p>
+    </div>
+
+    <p class="flight-note">Tarifa Light · mala de cabine pequena incluída · lugares selecionados.</p>
 
     <h3 class="section-h">Logística rodoviária</h3>
     <div class="logistics">
@@ -368,67 +344,25 @@
   <!-- ============================================================ -->
   <section class="tab-panel" data-panel="pagamentos">
 
-    <h3 class="section-h section-h-first">Pagamentos adiantados</h3>
-    <p class="section-intro">O que já foi reservado e pago pelo Adriano. Cada família reembolsa a sua parte.</p>
+    <h3 class="section-h section-h-first">Reembolsos dos voos</h3>
+    <p class="section-intro">Os voos easyJet já foram pagos pelo Adriano. Aqui vê-se quanto cada família (ou cada pessoa) deve reembolsar. Toca numa família para ver o detalhe por pessoa.</p>
 
     <ul class="pay-bookings" id="payBookings"></ul>
 
     <div class="card card-feature pay-feature">
-      <p class="card-eyebrow">Total adiantado</p>
-      <h2 class="card-amount" id="payTotalAdiantado">€16 559</h2>
-      <p class="card-sub">voos, lugares, malas e hotel já pagos</p>
-    </div>
-
-    <h3 class="section-h">Informações de voo</h3>
-    <p class="section-intro">Códigos de reserva e números de voo para consulta rápida no check-in e no aeroporto.</p>
-
-    <div class="flight-ref">
-      <div class="flight-ref-head">
-        <span class="flight-ref-group">Grupo 1 · 16 pessoas</span>
-        <span class="flight-ref-code">KCL63HT</span>
-      </div>
-      <div class="flight-ref-legs">
-        <div class="flight-ref-leg">
-          <span class="frl-dir">Ida · sáb 5/9</span>
-          <span class="frl-num">EJU6863</span>
-          <span class="frl-time">06:25 → 08:30 · OPO → FNC</span>
-        </div>
-        <div class="flight-ref-leg">
-          <span class="frl-dir">Volta · qui 10/9</span>
-          <span class="frl-num">EJU6834</span>
-          <span class="frl-time">15:15 → 17:15 · FNC → OPO</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="flight-ref">
-      <div class="flight-ref-head">
-        <span class="flight-ref-group">Grupo 2 · 5 pessoas</span>
-        <span class="flight-ref-code">KCL63SQ</span>
-      </div>
-      <div class="flight-ref-legs">
-        <div class="flight-ref-leg">
-          <span class="frl-dir">Ida · dom 6/9</span>
-          <span class="frl-num">EJU6831</span>
-          <span class="frl-time">07:00 → 09:05 · OPO → FNC</span>
-        </div>
-        <div class="flight-ref-leg">
-          <span class="frl-dir">Volta · sex 11/9</span>
-          <span class="frl-num">EJU6840</span>
-          <span class="frl-time">16:20 → 18:20 · FNC → OPO</span>
-        </div>
-      </div>
-      <p class="flight-ref-note">Grupo 2: Tiago, Fátima, Jorge, Jorge Miguel e Susete.</p>
+      <p class="card-eyebrow">Total dos voos pagos</p>
+      <h2 class="card-amount" id="payTotalAdiantado">€3 714</h2>
+      <p class="card-sub">voos, lugares e malas · 2 reservas easyJet</p>
     </div>
 
     <h3 class="section-h">Reembolso por família</h3>
-    <p class="section-intro">Quanto cada família deve ao Adriano pelos voos + hotel já pagos. As malas de porão estão incluídas no valor da família (divididas por todos os seus membros). Toca para marcar como acertado.</p>
+    <p class="section-intro">Quanto cada família deve dos voos já pagos. As malas de porão estão incluídas e divididas por toda a família. Toca para ver a parte de cada pessoa.</p>
 
     <ul class="pay-families" id="payFamilies"></ul>
 
     <div class="pay-summary" id="paySummary"></div>
 
-    <p class="footnote">Os custos da viagem (carros, gasolina, refeições, atrações) são acertados durante ou após a viagem.</p>
+    <p class="footnote">O hotel e os custos da viagem (carros, gasolina, refeições, atrações) serão acertados mais tarde, quando forem pagos.</p>
 
   </section>
 
