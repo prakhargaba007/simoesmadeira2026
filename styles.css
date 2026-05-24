@@ -2509,3 +2509,11 @@ body {
   color: var(--green-deep);
   border: 1px solid #d4e2cd;
 }
+
+/* Passeio de barco (variante azul do bloco de atividade) */
+.tl-boat {
+  background: #e9f1f5;
+  border-color: #c5dbe5;
+}
+.tl-boat .tl-trail-head { color: #1a5a7a; }
+.tl-boat .tl-trail-line strong { color: #1a5a7a; }

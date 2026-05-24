@@ -108,9 +108,12 @@ window.addEventListener('hashchange', openTabFromHash);
 const PRECO_REF_AD = 200;     // 5 dias × (30 almoço + 10 bebidas)
 const PRECO_REF_CR = 100;     // metade
 const PRECO_REF_BB = 0;
-const PRECO_ATR_AD = 53;        // Telef €22 + Cestos €15 + Museu €10 + Cabo Girão €3 + Porto Moniz €3
-const PRECO_ATR_CR = 19;        // média (8a:€32 / 6a:€23 / 4a:€3) ≈ €19/criança
+const PRECO_ATR_AD = 43;        // Telef €22 + Cestos €15 + Cabo Girão €3 + Porto Moniz €3 (sem Museu da Baleia)
+const PRECO_ATR_CR = 16;        // média crianças (sem museu)
 const PRECO_ATR_BB = 0;
+const PRECO_BARCO_AD = 40;      // passeio de golfinhos/baleias, catamarã grande (estimativa; pedir orçamento)
+const PRECO_BARCO_CR = 20;      // crianças ~metade
+const PRECO_BARCO_BB = 0;       // bebé ao colo, grátis
 const PRECO_ECO = 10;          // €2/noite × 5 noites
 
 // ===== MINI-BUS (Planeta Azul, autocarro 31 lugares) =====
@@ -281,9 +284,14 @@ function custosFamilia(fam) {
     if (p.cat === 'crianca') return s + PRECO_ATR_CR;
     return s;
   }, 0);
+  const barcoTotal = fam.pessoas.reduce((s, p) => {
+    if (p.cat === 'adulto') return s + PRECO_BARCO_AD;
+    if (p.cat === 'crianca') return s + PRECO_BARCO_CR;
+    return s;
+  }, 0);
 
   const ja = hotelTotal + transporteTotal + vooTotal + ecotaxTotal;
-  const depois = refTotal + atrTotal;
+  const depois = refTotal + atrTotal + barcoTotal;
 
   return {
     ocupantes,
@@ -293,6 +301,7 @@ function custosFamilia(fam) {
     ecotax: ecotaxTotal,
     refeicoes: refTotal,
     atracoes: atrTotal,
+    barco: barcoTotal,
     ja,
     depois,
     total: ja + depois,
@@ -392,54 +401,61 @@ const mapLink = (placeId) => placeId && placeId.startsWith('ChIJ')
 const programa = [
   {
     day: 'Sáb 5/9',
-    theme: 'Chegada · Funchal',
-    prog: 'Chegada do grupo 1 de manhã. À tarde, primeiro contacto com o Funchal: Mercado dos Lavradores, teleférico do Monte e a descida nos famosos Carros de Cesto.',
+    theme: 'Chegada · Leste',
+    prog: 'Chegada do grupo 1 de madrugada. Como falta a família do Jorge (só chega no dia 6), aproveitamos para explorar o leste — perto do aeroporto por onde entrámos. Os miradouros da Ponta de São Lourenço, com a tarde a abrandar. As experiências mais marcantes em grupo (barco e Carros de Cesto) ficam para o dia 6.',
     horario: [
       { h: '08:30', txt: 'Aterragem do grupo 1 (voo EJU6863). Mini-bus recolhe o grupo.' },
       { h: '09:30', txt: 'Largar malas no Pestana Carlton (check-in só às 15h; guardam-se as malas).' },
-      { h: '10:30', txt: 'Saída do hotel para o Mercado dos Lavradores.' },
-      { h: '11:00', txt: 'Mercado dos Lavradores — frutas exóticas, peixe, flores.' },
-      { h: '13:00', txt: 'Almoço no Funchal (ver sugestões).' },
-      { h: '15:00', txt: 'Teleférico do Monte (subida) + Jardim Tropical do Monte.' },
-      { h: '16:30', txt: 'Descida nos Carros de Cesto do Monte até ao Livramento.' },
-      { h: '18:00', txt: 'Regresso ao hotel. Resto da tarde livre nas piscinas.' },
-      { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
-    ],
-    almoco: [
-      { nome: 'Gavião Novo (centro histórico)', desc: 'Casa de peixe e marisco bem conceituada na Rua de Santa Maria, com salas amplas. Aceita reserva — pedir mesa para o grupo.', grupo: 'Bom para grupos · reservar' },
-      { nome: 'Peixaria no Mercado', desc: 'Mesmo no mercado, peixe fresco e esplanada animada (~€20-40/pessoa). Espaço mais limitado — confirmar mesa para 17 ao reservar.', grupo: 'Reservar e confirmar capacidade' },
-    ],
-    locais: [
-      { nome: 'Mercado dos Lavradores', placeId: PLACES.mercado },
-      { nome: 'Teleférico do Monte', placeId: PLACES.teleferico },
-      { nome: 'Carreiros do Monte', placeId: PLACES.cestos },
-    ],
-  },
-  {
-    day: 'Dom 6/9',
-    theme: 'Leste · Ponta de São Lourenço',
-    prog: 'A caminho do leste paramos no aeroporto para receber a família do Jorge (fica mesmo no trajeto). Depois seguimos para o Museu da Baleia no Caniçal e os miradouros da Ponta de São Lourenço.',
-    horario: [
-      { h: '09:30', txt: 'Saída do hotel para leste. O aeroporto fica a caminho do Caniçal — paramos para apanhar a família do Jorge (voo EJU6831, aterrou 09:05).' },
-      { h: '10:00', txt: 'Grupo completo (22) reunido no aeroporto. Seguimos para o Caniçal.' },
-      { h: '10:45', txt: 'Museu da Baleia (Caniçal) — história da caça à baleia e conservação.' },
+      { h: '10:30', txt: 'Saída para leste (Ponta de São Lourenço).' },
       { h: '12:30', txt: 'Almoço no Caniçal / Machico (ver sugestões).' },
-      { h: '14:30', txt: 'Ponta de São Lourenço — miradouros e paisagem vulcânica.' },
-      { h: '17:30', txt: 'Regresso ao hotel.' },
+      { h: '14:30', txt: 'Ponta de São Lourenço — miradouros e paisagem vulcânica. Versão curta do trilho.' },
+      { h: '17:00', txt: 'Regresso ao hotel. Resto da tarde livre nas piscinas, a descansar da viagem.' },
       { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
     ],
     trilho: {
       nome: 'Ponta de São Lourenço (PR8)',
       tempo: 'Versão curta ~45 min (ida e volta ao 1º miradouro); trilho completo ~3h (8 km)',
-      esforco: 'Moderado · sobe e desce, exposto ao sol e vento, sem sombra. Com crianças pequenas e bebé, fazer só o início até ao primeiro miradouro (fácil e plano).',
+      esforco: 'Moderado · sobe e desce, exposto ao sol e vento, sem sombra. No dia da chegada (cansaço da viagem de madrugada), fazer só o início até ao primeiro miradouro (fácil e plano).',
     },
+    nota: 'Dia mais leve de propósito: o grupo chega cansado do voo das 06:25 e falta a família do Jorge. O leste fica perto do aeroporto e poupa-se a experiência do barco e dos Carros de Cesto para quando estiverem os 22.',
     almoco: [
-      { nome: 'Mercado Velho (Machico)', desc: 'Esplanada ampla junto ao ribeiro, no caminho para a Ponta. Cozinha madeirense, espaço para grupos.', grupo: 'Bom para grupos · reservar' },
-      { nome: 'O Recanto (Caniçal)', desc: 'Gem local perto da Ponta de São Lourenço, buffet de almoço a bom preço. Espaço limitado — só com reserva confirmada para 22.', grupo: 'Pequeno · confirmar 22 lugares' },
+      { nome: 'Mercado Velho (Machico)', desc: 'Esplanada ampla junto ao ribeiro, a caminho da Ponta. Cozinha madeirense, espaço para grupos.', grupo: 'Bom para grupos · reservar' },
+      { nome: 'O Recanto (Caniçal)', desc: 'Gem local perto da Ponta de São Lourenço, buffet de almoço a bom preço. Espaço limitado — confirmar mesa para 17 ao reservar.', grupo: 'Pequeno · confirmar lugares' },
     ],
     locais: [
-      { nome: 'Museu da Baleia · Caniçal', placeId: PLACES.museuBaleia },
       { nome: 'Ponta de São Lourenço', placeId: PLACES.pontaSL },
+      { nome: 'Museu da Baleia · Caniçal (opcional)', placeId: PLACES.museuBaleia },
+    ],
+  },
+  {
+    day: 'Dom 6/9',
+    theme: 'Funchal & Mar',
+    prog: 'Primeiro dia com o grupo completo. Apanhamos a família do Jorge no aeroporto e dedicamos o dia às experiências imperdíveis do Funchal: passeio de barco para ver golfinhos e baleias, o Mercado dos Lavradores e a descida nos icónicos Carros de Cesto do Monte.',
+    horario: [
+      { h: '09:30', txt: 'Saída do hotel. Paragem no aeroporto para apanhar a família do Jorge (voo EJU6831, aterrou 09:05).' },
+      { h: '10:00', txt: 'Grupo completo (22). Regresso à Marina do Funchal.' },
+      { h: '10:30', txt: 'Passeio de barco — golfinhos e baleias (catamarã, ~2h30). Reservar com antecedência.' },
+      { h: '13:00', txt: 'Almoço no Funchal (ver sugestões).' },
+      { h: '15:00', txt: 'Mercado dos Lavradores — frutas exóticas, peixe, flores.' },
+      { h: '16:00', txt: 'Teleférico do Monte (subida) + Jardim Tropical do Monte.' },
+      { h: '17:00', txt: 'Descida nos Carros de Cesto do Monte até ao Livramento.' },
+      { h: '18:00', txt: 'Regresso ao hotel.' },
+      { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
+    ],
+    barco: {
+      nome: 'Passeio de barco · golfinhos e baleias',
+      tempo: '~2h30, partida da Marina do Funchal',
+      nota: 'Setembro é época alta (mar calmo, boas hipóteses de avistamento). Para 22 pessoas, escolher um catamarã grande e estável e reservar com dias de antecedência. Com a bebé e as crianças pequenas, levar protetor solar, água e chapéu; os avistamentos não são garantidos (são animais selvagens).',
+    },
+    almoco: [
+      { nome: 'Gavião Novo (centro histórico)', desc: 'Casa de peixe e marisco na Rua de Santa Maria, perto da marina, com salas amplas. Aceita reserva — pedir mesa para 22.', grupo: 'Bom para grupos · reservar' },
+      { nome: 'Restaurante do Forte / Cervejaria Beerhouse', desc: 'Na marina, espaço grande e esplanada sobre o mar, prático após o barco. Boa opção para grupos.', grupo: 'Bom para grupos · reservar' },
+    ],
+    locais: [
+      { nome: 'Marina do Funchal', placeId: PLACES.mercado },
+      { nome: 'Mercado dos Lavradores', placeId: PLACES.mercado },
+      { nome: 'Teleférico do Monte', placeId: PLACES.teleferico },
+      { nome: 'Carreiros do Monte', placeId: PLACES.cestos },
     ],
   },
   {
@@ -613,6 +629,20 @@ programa.forEach((d, i) => {
     </div>
   ` : '';
 
+  // Passeio de barco
+  const barcoHTML = d.barco ? `
+    <div class="tl-trail tl-boat">
+      <div class="tl-trail-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M3 14l9-4 9 4-2 6H5l-2-6zM12 10V3M8 6h8"/>
+        </svg>
+        <span>${d.barco.nome}</span>
+      </div>
+      <p class="tl-trail-line"><strong>Duração:</strong> ${d.barco.tempo}</p>
+      <p class="tl-trail-line">${d.barco.nota}</p>
+    </div>
+  ` : '';
+
   // Sugestões de almoço
   const almocoHTML = d.almoco && d.almoco.length ? `
     <div class="tl-lunch">
@@ -654,6 +684,7 @@ programa.forEach((d, i) => {
     <p class="tl-prog">${d.prog}</p>
     ${horarioHTML}
     ${trilhoHTML}
+    ${barcoHTML}
     ${almocoHTML}
     ${notaHTML}
     ${locaisHTML}
@@ -774,6 +805,9 @@ function familyModalHTML(fam, c) {
   const linhasDepois = [];
   if (c.atracoes > 0) {
     linhasDepois.push({ label: 'Atrações', val: c.atracoes, sub: 'teleférico, Cesto Monte, Cabo Girão, etc.' });
+  }
+  if (c.barco > 0) {
+    linhasDepois.push({ label: 'Passeio de barco', val: c.barco, sub: 'golfinhos e baleias · estimativa, pedir orçamento' });
   }
   if (c.refeicoes > 0) {
     linhasDepois.push({ label: 'Almoços + bebidas', val: c.refeicoes, sub: '5 dias · jantares incluídos no hotel' });
@@ -950,11 +984,12 @@ const totaisGlobais = familias.reduce((acc, f) => {
   acc.transporte += c.transporte;
   acc.ecotax += c.ecotax;
   acc.atracoes += c.atracoes;
+  acc.barco += c.barco;
   acc.refeicoes += c.refeicoes;
   acc.pessoas += c.ocupantes;
   return acc;
 }, { total: 0, ja: 0, depois: 0, hotel: 0, voo: 0, transporte: 0, ecotax: 0,
-     atracoes: 0, refeicoes: 0, pessoas: 0 });
+     atracoes: 0, barco: 0, refeicoes: 0, pessoas: 0 });
 
 // Inserir no DOM os totais
 document.getElementById('totalTrip').textContent = eur(totaisGlobais.total);
@@ -1049,18 +1084,32 @@ const categorias = {
     eyebrow: 'Pago durante · Atrações',
     titulo: 'Atrações',
     intro: 'Estimativa para as atrações principais durante os 5 dias. As crianças mais pequenas têm preços reduzidos ou entrada grátis em quase tudo.',
-    formula: '~€53 por adulto · variável por criança · bebé não paga',
+    formula: '~€43 por adulto · variável por criança · bebé não paga',
     linhas: [
       { txt: 'Teleférico do Monte (ida + volta)', val: null, sub: 'Adulto €22 · criança 7-14 €9 · <7 grátis' },
       { txt: 'Carros de Cesto do Monte', val: null, sub: '€30 por carro de 2 pessoas (€15/pessoa) · <5 grátis' },
-      { txt: 'Museu da Baleia (Caniçal)', val: null, sub: 'Adulto €10 · jovem 12-17 €8,50 · criança 6-11 €5 · <6 grátis' },
       { txt: 'Cabo Girão (skywalk de vidro)', val: null, sub: 'Adulto €3 · <12 anos grátis' },
       { txt: 'Piscinas de Porto Moniz', val: null, sub: 'Adulto €3 · <3 anos grátis' },
-      { txt: '18 adultos × ~€53', val: 18 * 53 },
-      { txt: '3 crianças (8, 6, 4 anos) — preços reduzidos', val: 32 + 23 + 3 },
+      { txt: '18 adultos × ~€43', val: 18 * 43 },
+      { txt: '3 crianças (8, 6, 4 anos) — preços reduzidos', val: 3 * 16 },
       { txt: 'Aurora (bebé) · 0', val: 0 },
     ],
-    nota: 'Valores actualizados para 2026. Madalena (8) paga em tudo excepto Cabo Girão. Emília (6) paga só Cestos, Museu e Porto Moniz. Ana (4) só paga Porto Moniz. Aurora não paga em nada. Acertos podem ser feitos no destino consoante o que for visitado.',
+    nota: 'O Museu da Baleia saiu do programa (substituído pelo passeio de barco, ver categoria própria). Valores para 2026. Acertos podem ser feitos no destino consoante o que for visitado.',
+  },
+  barco: {
+    lbl: 'Passeio de barco',
+    val: totaisGlobais.barco,
+    when: 'depois',
+    eyebrow: 'Pago durante · Mar',
+    titulo: 'Passeio de barco',
+    intro: 'Passeio de catamarã para observação de golfinhos e baleias, a partir da Marina do Funchal (dia 6, ~2h30). Estimativa — é preciso pedir orçamento de grupo às empresas.',
+    formula: '~€40/adulto · ~€20/criança · bebé grátis',
+    linhas: [
+      { txt: '18 adultos × €40', val: 18 * 40 },
+      { txt: '3 crianças × €20 (metade)', val: 3 * 20 },
+      { txt: 'Aurora (bebé) · ao colo, grátis', val: 0 },
+    ],
+    nota: 'ESTIMATIVA com base em preços de 2026 (€35-45/adulto em catamarã grande). Pedir orçamento de grupo a: VMT Madeira, Magic Dolphin, Bonita da Madeira e OceanSee. Grupos de 20+ costumam ter desconto. Os avistamentos não são garantidos (animais selvagens).',
   },
   refeicoes: {
     lbl: 'Almoços + bebidas',
@@ -1083,7 +1132,7 @@ const categorias = {
   },
 };
 
-const ordemCategorias = ['hotel', 'voos', 'minibus', 'ecotax', 'atracoes', 'refeicoes'];
+const ordemCategorias = ['hotel', 'voos', 'minibus', 'ecotax', 'atracoes', 'barco', 'refeicoes'];
 
 tbody.innerHTML = ordemCategorias.map(key => {
   const c = categorias[key];
