@@ -216,19 +216,12 @@ const familias = [
   },
   {
     name: 'Jorge',
-    quarto: 'Twin Family (3 pess)',
-    hotel: 1824,
+    quarto: '2 quartos (Family 3 pess + Vista Piscina)',
+    hotel: 3207,
     pessoas: [
       { nome: 'Tiago Simões Silva', idade: 17, cat: 'adulto', voo: 156.95 },
       { nome: 'Maria de Fátima Ribeiro Simões', idade: 48, cat: 'adulto', voo: 156.95 },
       { nome: 'Jorge Manuel Ferreira da Silva', idade: 48, cat: 'adulto', voo: 156.95 },
-    ],
-  },
-  {
-    name: 'Jorginho',
-    quarto: 'Twin Classic Vista Piscina',
-    hotel: 1383,
-    pessoas: [
       { nome: 'Jorge Miguel Simões da Silva', idade: 25, cat: 'adulto', voo: 142.96 },
       { nome: 'Susete Daniela Silva Loureiro', idade: 25, cat: 'adulto', voo: 142.96 },
     ],
@@ -425,11 +418,11 @@ const programa = [
   {
     day: 'Dom 6/9',
     theme: 'Leste · Ponta de São Lourenço',
-    prog: 'De manhã passamos pelo aeroporto para receber a família do Jorge. Depois seguimos para leste: Museu da Baleia no Caniçal e os miradouros da Ponta de São Lourenço.',
+    prog: 'A caminho do leste paramos no aeroporto para receber a família do Jorge (fica mesmo no trajeto). Depois seguimos para o Museu da Baleia no Caniçal e os miradouros da Ponta de São Lourenço.',
     horario: [
-      { h: '08:45', txt: 'Saída do hotel. Passagem pelo aeroporto para buscar a família do Jorge (voo EJU6831, chega 09:05).' },
-      { h: '09:30', txt: 'Grupo completo (22). Seguimos para o Caniçal.' },
-      { h: '10:30', txt: 'Museu da Baleia (Caniçal) — história da caça à baleia e conservação.' },
+      { h: '09:30', txt: 'Saída do hotel para leste. O aeroporto fica a caminho do Caniçal — paramos para apanhar a família do Jorge (voo EJU6831, aterrou 09:05).' },
+      { h: '10:00', txt: 'Grupo completo (22) reunido no aeroporto. Seguimos para o Caniçal.' },
+      { h: '10:45', txt: 'Museu da Baleia (Caniçal) — história da caça à baleia e conservação.' },
       { h: '12:30', txt: 'Almoço no Caniçal / Machico (ver sugestões).' },
       { h: '14:30', txt: 'Ponta de São Lourenço — miradouros e paisagem vulcânica.' },
       { h: '17:30', txt: 'Regresso ao hotel.' },
@@ -454,8 +447,8 @@ const programa = [
     theme: 'Norte · Santana',
     prog: 'Dia no norte verdejante: as casas típicas de Santana, um passeio acessível na zona das Queimadas/Pico das Pedras e o posto florestal do Ribeiro Frio.',
     horario: [
-      { h: '09:00', txt: 'Saída do hotel para Santana.' },
-      { h: '10:30', txt: 'Casas Típicas de Santana — as casinhas triangulares coloridas.' },
+      { h: '09:30', txt: 'Saída do hotel para Santana.' },
+      { h: '10:45', txt: 'Casas Típicas de Santana — as casinhas triangulares coloridas.' },
       { h: '11:30', txt: 'Pico das Pedras → início do passeio (o autocarro não chega às Queimadas).' },
       { h: '13:30', txt: 'Almoço em Santana (ver sugestões).' },
       { h: '15:30', txt: 'Ribeiro Frio — posto florestal, viveiro de trutas, miradouros.' },
@@ -505,8 +498,8 @@ const programa = [
     theme: 'Noroeste · Porto Moniz',
     prog: 'Travessia do planalto do Paúl da Serra, a floresta de fadas do Fanal e banho nas piscinas naturais de lava de Porto Moniz.',
     horario: [
-      { h: '09:00', txt: 'Saída do hotel. Subida ao planalto do Paúl da Serra.' },
-      { h: '10:30', txt: 'Fanal — floresta de loureiros centenários, muitas vezes com névoa mística.' },
+      { h: '09:30', txt: 'Saída do hotel. Subida ao planalto do Paúl da Serra.' },
+      { h: '11:00', txt: 'Fanal — floresta de loureiros centenários, muitas vezes com névoa mística.' },
       { h: '12:30', txt: 'Almoço em Porto Moniz (ver sugestões).' },
       { h: '14:30', txt: 'Piscinas naturais de Porto Moniz — banho nas piscinas de lava vulcânica.' },
       { h: '17:00', txt: 'Regresso ao hotel (pela costa ou pelo interior).' },
@@ -997,7 +990,7 @@ const categorias = {
       { txt: 'Twin Classic Vista Piscina (Carmo) · 5 noites', val: 1383 },
       { txt: 'Twin Classic Vista Piscina (Luís) · 5 noites', val: 1383 },
       { txt: 'Twin Classic Vista Piscina (Ana Maria) · 5 noites', val: 1383 },
-      { txt: 'Twin Classic Vista Piscina (Jorginho) · 5 noites', val: 1383 },
+      { txt: 'Twin Classic Vista Piscina (Jorge — 2º quarto) · 5 noites', val: 1383 },
       { txt: 'Twin Classic Vista Cidade (Pedro) · 5 noites', val: 992 },
     ],
     nota: 'Tarifa Pestana com promo e ecotax incluídos nos recibos. As bebidas ao jantar não estão incluídas (estimadas em €10/adulto/dia, contadas em "Almoços + bebidas").',
