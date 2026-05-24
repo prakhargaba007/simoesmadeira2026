@@ -16,6 +16,9 @@ function unlock() {
   gate.style.display = 'none';
   app.hidden = false;
   document.body.style.overflow = '';
+  // Se o URL aponta para uma tab específica (ex.: #pagamentos), abre-a.
+  // openTabFromHash pode ainda não estar pronta no arranque inicial; o guard trata disso.
+  try { openTabFromHash(); } catch (e) { /* ignora no arranque */ }
 }
 
 function lock() {
@@ -54,14 +57,33 @@ document.getElementById('logoutBtn').addEventListener('click', lock);
 const tabs = document.querySelectorAll('.tab');
 const panels = document.querySelectorAll('.tab-panel');
 
+const tabsValidas = Array.from(tabs).map((t) => t.dataset.tab);
+
+function activateTab(target, { scroll = true, updateHash = true } = {}) {
+  if (!tabsValidas.includes(target)) return;
+  tabs.forEach((t) => t.classList.toggle('active', t.dataset.tab === target));
+  panels.forEach((p) => p.classList.toggle('active', p.dataset.panel === target));
+  if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (updateHash) {
+    // Atualiza o URL sem recarregar nem fazer scroll de âncora
+    history.replaceState(null, '', '#' + target);
+  }
+}
+
 tabs.forEach((tab) => {
-  tab.addEventListener('click', () => {
-    const target = tab.dataset.tab;
-    tabs.forEach((t) => t.classList.toggle('active', t === tab));
-    panels.forEach((p) => p.classList.toggle('active', p.dataset.panel === target));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  tab.addEventListener('click', () => activateTab(tab.dataset.tab));
 });
+
+// Abrir a tab indicada no URL (ex.: .../#pagamentos)
+function openTabFromHash() {
+  const alvo = (location.hash || '').replace('#', '').trim();
+  if (alvo && tabsValidas.includes(alvo)) {
+    activateTab(alvo, { scroll: false, updateHash: false });
+  }
+}
+
+// Responder a mudanças de hash (ex.: alguém cola um novo link na mesma sessão)
+window.addEventListener('hashchange', openTabFromHash);
 
 // =====================================================
 // DADOS — derivados directamente do Excel
@@ -1245,4 +1267,13 @@ if (payFamiliesEl) {
     </div>
     <p class="pay-sum-note">${nFamPagas} de ${nFamTotal} famílias acertaram · total a reembolsar ${eur(totalDevido)}</p>
   `;
+}
+
+// =====================================================
+// Abertura de tab via URL (#pagamentos, #programa, etc.)
+// Corre no fim, quando tudo já está definido. Cobre o caso de a
+// sessão já estar desbloqueada ao carregar a página.
+// =====================================================
+if (!app.hidden) {
+  openTabFromHash();
 }
