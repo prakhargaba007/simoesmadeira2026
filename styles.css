@@ -2029,69 +2029,63 @@ body {
   gap: 0.5rem;
 }
 .pay-fam {
-  display: flex;
-  flex-direction: column;
   background: var(--sand);
   border: 1px solid var(--sand-warm);
   border-radius: var(--radius-sm);
   overflow: hidden;
   transition: background 0.15s, border-color 0.15s;
 }
-.pay-fam:hover {
-  border-color: var(--green-mist);
-}
 .pay-fam-paga {
   background: var(--green-mist);
   border-color: rgba(15, 58, 46, 0.2);
 }
-
-.pay-fam-check {
-  flex-shrink: 0;
+.pay-fam-parcial {
+  background: #fdf3e6;
+  border-color: #f1d9a8;
 }
-.pay-check {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 2px solid var(--ink-mute);
-  display: flex;
+
+/* Cabeçalho da família: grid com 2 colunas (info | valor) */
+.pay-fam-head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--paper);
-  transition: background 0.15s, border-color 0.15s;
+  gap: 0.5rem 1rem;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
 }
-.pay-fam-paga .pay-check {
-  background: var(--green-deep);
-  border-color: var(--green-deep);
-}
-
-.pay-fam-info { flex: 1; min-width: 0; }
+.pay-fam-info { min-width: 0; }
 .pay-fam-name {
+  font-family: var(--serif);
   font-weight: 600;
-  font-size: 15px;
+  font-size: 17px;
   margin: 0;
   color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 .pay-fam-nota {
   font-size: 11px;
   color: var(--ink-mute);
-  margin: 2px 0 0;
-}
-.pay-fam-breakdown {
-  font-size: 11px;
-  color: var(--ink-soft);
   margin: 3px 0 0;
-  font-style: italic;
+  line-height: 1.4;
 }
 .pay-fam-amt {
   text-align: right;
-  flex-shrink: 0;
+  white-space: nowrap;
 }
 .pay-fam-total {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
   color: var(--green-deep);
   margin: 0;
 }
@@ -2103,8 +2097,58 @@ body {
   margin: 2px 0 0;
   color: var(--ink-mute);
 }
-.pay-fam-paga .pay-fam-status {
+.pay-fam-paga .pay-fam-status { color: var(--green-deep); }
+.pay-fam-parcial .pay-fam-status { color: #b5751a; }
+
+.pay-fam-chevron {
+  font-size: 14px;
+  color: var(--ink-mute);
+  transition: transform 0.2s;
+}
+.pay-fam-open .pay-fam-chevron { transform: rotate(180deg); }
+
+/* Lista de pessoas: cada pessoa é um grid de 3 colunas (check | info | valor) */
+.pay-pessoas {
+  list-style: none;
+  margin: 0;
+  padding: 0 1.25rem 0.5rem;
+}
+.pay-pessoa {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0;
+  border-top: 1px solid var(--sand-warm);
+}
+.pay-pessoa-check {
+  font-size: 13px;
+  color: var(--ink-mute);
+  font-weight: 700;
+  text-align: center;
+}
+.pay-pessoa-paga .pay-pessoa-check { color: var(--green-deep); }
+.pay-pessoa-info { min-width: 0; display: flex; flex-direction: column; }
+.pay-pessoa-nome {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.pay-pessoa-paga .pay-pessoa-nome { color: var(--green-deep); }
+.pay-pessoa-detail {
+  font-size: 11px;
+  color: var(--ink-mute);
+  font-style: italic;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.pay-pessoa-val {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 14px;
   color: var(--green-deep);
+  text-align: right;
+  white-space: nowrap;
 }
 
 /* Summary */
@@ -2248,102 +2292,4 @@ body {
   color: rgba(245, 239, 228, 0.6);
   margin: 0.875rem 0 0;
   font-style: italic;
-}
-
-/* Família expansível (cabeçalho como botão) */
-.pay-fam-head {
-  width: 100%;
-  display: flex !important;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.875rem;
-  padding: 1rem 1.25rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  -webkit-tap-highlight-color: transparent;
-  font-family: inherit;
-  -webkit-appearance: none;
-  appearance: none;
-}
-.pay-fam-head .pay-fam-info {
-  text-align: left;
-}
-.pay-fam-head .pay-fam-amt {
-  text-align: right;
-}
-.pay-fam-chevron {
-  display: inline-block;
-  margin-left: 0.5rem;
-  font-size: 16px;
-  color: var(--ink-mute);
-  transition: transform 0.2s;
-}
-.pay-fam-open .pay-fam-chevron {
-  transform: rotate(180deg);
-}
-.pay-fam-parcial {
-  background: #fdf3e6;
-  border-color: #f1d9a8;
-}
-.pay-fam-parcial .pay-fam-status { color: #b5751a; }
-
-/* Lista de pessoas dentro da família */
-.pay-pessoas {
-  list-style: none;
-  margin: 0;
-  padding: 0 1.25rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.pay-pessoa {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.625rem 0;
-  border-top: 1px solid var(--sand-warm);
-}
-.pay-pessoa-check {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  color: var(--ink-mute);
-  font-weight: 700;
-}
-.pay-pessoa-paga .pay-pessoa-check {
-  color: var(--green-deep);
-}
-.pay-pessoa-info {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.pay-pessoa-nome {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-}
-.pay-pessoa-paga .pay-pessoa-nome {
-  color: var(--green-deep);
-}
-.pay-pessoa-detail {
-  font-size: 11px;
-  color: var(--ink-mute);
-  font-style: italic;
-  margin-top: 1px;
-}
-.pay-pessoa-val {
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: 14px;
-  color: var(--green-deep);
-  flex-shrink: 0;
 }
