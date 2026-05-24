@@ -1117,19 +1117,13 @@ const reembolsosVoos = [
     ],
   },
   {
-    familia: 'Carmo', grupo: 1,
-    nota: 'Manuel O. e Carmo · 1 mala dividida por 2',
+    familia: 'Carmo e Luís', grupo: 1,
+    nota: 'Manuel O., Carmo, Luís e João Pedro · 1 mala (Carmo) dividida por 2',
     pessoas: [
-      { nome: 'Manuel O.', voo: 161.88, lugar: 17.48, mala: 20.49, pago: false },
-      { nome: 'Carmo',     voo: 161.88, lugar: 17.48, mala: 20.49, pago: false },
-    ],
-  },
-  {
-    familia: 'Luís', grupo: 1,
-    nota: 'Luís e João Pedro · sem mala de porão',
-    pessoas: [
-      { nome: 'Luís',       voo: 161.88, lugar: 17.48, mala: 0, pago: false },
-      { nome: 'João Pedro', voo: 161.88, lugar: 17.48, mala: 0, pago: false },
+      { nome: 'Manuel O.',  voo: 161.88, lugar: 17.48, mala: 20.49, pago: true },
+      { nome: 'Carmo',      voo: 161.88, lugar: 17.48, mala: 20.49, pago: true },
+      { nome: 'Luís',       voo: 161.88, lugar: 17.48, mala: 0, pago: true },
+      { nome: 'João Pedro', voo: 161.88, lugar: 17.48, mala: 0, pago: true },
     ],
   },
   {
