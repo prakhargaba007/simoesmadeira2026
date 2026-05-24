@@ -112,11 +112,29 @@ const PRECO_ATR_AD = 53;        // Telef €22 + Cestos €15 + Museu €10 + Ca
 const PRECO_ATR_CR = 19;        // média (8a:€32 / 6a:€23 / 4a:€3) ≈ €19/criança
 const PRECO_ATR_BB = 0;
 const PRECO_ECO = 10;          // €2/noite × 5 noites
-const PARK_TOTAL = 250;        // €10/dia × 5 dias × 5 carros = 250
-const GASOL_TOTAL = 331.24;    // total para todos
-const N_PAGANTES_GASOL = 21;   // adultos + crianças (bebé não conta)
-const N_CARROS = 5;
-const PRECO_CARRO = 161;
+
+// ===== MINI-BUS (Planeta Azul, autocarro 31 lugares) =====
+// Preços por dia COM IVA (4%). Cada dia é dividido só por quem está cá nesse dia.
+// Grupo 1 (17 pax: 16 easyJet + Pedro) usa os 6 dias.
+// Família Jorge (5 pax) chega dia 6 e parte dia 11 → usa só dias 6,7,8,9.
+const BUS_DIAS = [
+  { data: '05/09', desc: 'Mercado · Teleférico · Monte', valor: 329.18 * 1.04, todos: false }, // só grupo 1
+  { data: '06/09', desc: 'Caniçal · Ponta de São Lourenço', valor: 356.35 * 1.04, todos: true },
+  { data: '07/09', desc: 'Santana · Caldeirão Verde · Ribeiro Frio', valor: 378.29 * 1.04, todos: true },
+  { data: '08/09', desc: 'Cabo Girão · Câmara de Lobos · Calheta', valor: 378.29 * 1.04, todos: true },
+  { data: '09/09', desc: 'Paúl da Serra · Fanal · Porto Moniz', valor: 378.29 * 1.04, todos: true },
+  { data: '10/09', desc: 'Transfer de partida', valor: 172.95 * 1.04, todos: false }, // só grupo 1
+];
+const BUS_TOTAL = BUS_DIAS.reduce((s, d) => s + d.valor, 0);  // €2073.08
+const N_GRUPO1 = 17;   // pessoas presentes nos dias "só grupo 1" (16 easyJet + Pedro)
+const N_TODOS = 22;    // pessoas presentes nos dias "todos"
+
+// Custo do bus por pessoa do grupo 1 (usa todos os dias)
+const BUS_PP_GRUPO1 = BUS_DIAS.reduce((s, d) => s + d.valor / (d.todos ? N_TODOS : N_GRUPO1), 0);
+// Custo do bus por pessoa da família Jorge (só dias "todos")
+const BUS_PP_JORGE = BUS_DIAS.reduce((s, d) => s + (d.todos ? d.valor / N_TODOS : 0), 0);
+
+const TOTAL_PESSOAS = 22;
 
 // Famílias: { name, hotel, voo, carro?, pessoas: [{nome, idade, categoria, voo}] }
 // Voo individual: cada pessoa paga o seu bilhete (bebé tem tarifa especial €62)
@@ -246,20 +264,22 @@ function custosPessoa(pessoa) {
 }
 
 // Total de pessoas no grupo (incluindo bebé), usado para dividir custos partilhados
-const TOTAL_PESSOAS = 22;
+
+// Famílias que chegam um dia mais tarde (grupo 2) — não pagam o dia 5 nem o transfer de partida
+const FAMILIAS_GRUPO2 = ['Jorge', 'Jorginho'];
+function busPorPessoa(nomeFamilia) {
+  return FAMILIAS_GRUPO2.includes(nomeFamilia) ? BUS_PP_JORGE : BUS_PP_GRUPO1;
+}
 
 function custosFamilia(fam) {
   const ocupantes = fam.pessoas.length;
 
   // Pago já — Hotel: por quarto
   const hotelTotal = fam.hotel;
-  // Pago já — Carros: TOTAL ALUGUER / 22 × ocupantes (todos contribuem, incluindo bebé)
-  const carroTotal = (PRECO_CARRO * N_CARROS) / TOTAL_PESSOAS * ocupantes;
 
-  // Pago depois — Estacionamento: TOTAL / 22 × ocupantes (todos contribuem)
-  const parkingTotal = PARK_TOTAL / TOTAL_PESSOAS * ocupantes;
-  // Pago depois — Combustível: TOTAL / 22 × ocupantes (todos precisam de lugar)
-  const gasolTotal = GASOL_TOTAL / TOTAL_PESSOAS * ocupantes;
+  // Pago já — Transporte (mini-bus): por pessoa, conforme os dias em que usufrui
+  const busPP = busPorPessoa(fam.name);
+  const transporteTotal = busPP * ocupantes;
 
   // Pago já — individual (somatório)
   const vooTotal = fam.pessoas.reduce((s, p) => s + p.voo, 0);
@@ -277,17 +297,15 @@ function custosFamilia(fam) {
     return s;
   }, 0);
 
-  const ja = hotelTotal + carroTotal + vooTotal + ecotaxTotal;
-  const depois = parkingTotal + gasolTotal + refTotal + atrTotal;
+  const ja = hotelTotal + transporteTotal + vooTotal + ecotaxTotal;
+  const depois = refTotal + atrTotal;
 
   return {
     ocupantes,
     hotel: hotelTotal,
-    carro: carroTotal,
+    transporte: transporteTotal,
     voo: vooTotal,
     ecotax: ecotaxTotal,
-    parking: parkingTotal,
-    gasolina: gasolTotal,
     refeicoes: refTotal,
     atracoes: atrTotal,
     ja,
@@ -302,10 +320,8 @@ function custosPessoaCompleto(pessoa, fam, custosFam) {
   const ocup = custosFam.ocupantes;
   const hotelShare = custosFam.hotel / ocup;
 
-  // Carros, parking e gasolina: dividido por todas as 22 pessoas (cada um precisa de um lugar)
-  const carroShare = (PRECO_CARRO * N_CARROS) / TOTAL_PESSOAS;
-  const parkShare = PARK_TOTAL / TOTAL_PESSOAS;
-  const gasolShare = GASOL_TOTAL / TOTAL_PESSOAS;
+  // Transporte (mini-bus): quota por pessoa conforme os dias em que usufrui
+  const transporteShare = busPorPessoa(fam.name);
 
   // Individuais
   const ecotax = pessoa.cat === 'adulto' ? PRECO_ECO : 0;
@@ -314,12 +330,12 @@ function custosPessoaCompleto(pessoa, fam, custosFam) {
   const atr = pessoa.cat === 'adulto' ? PRECO_ATR_AD :
               pessoa.cat === 'crianca' ? PRECO_ATR_CR : PRECO_ATR_BB;
 
-  const ja = hotelShare + carroShare + pessoa.voo + ecotax;
-  const depois = parkShare + gasolShare + ref + atr;
+  const ja = hotelShare + transporteShare + pessoa.voo + ecotax;
+  const depois = ref + atr;
 
   return {
-    hotelShare, carroShare, voo: pessoa.voo, ecotax,
-    parkShare, gasolShare, ref, atr,
+    hotelShare, transporteShare, voo: pessoa.voo, ecotax,
+    ref, atr,
     ja, depois, total: ja + depois,
   };
 }
@@ -386,7 +402,7 @@ const programa = [
   {
     day: 'Sáb 5/9',
     theme: 'Chegada',
-    prog: 'Recolha de carros e transferência para o hotel (~20 min). Tarde livre nas piscinas. Jantar no hotel.',
+    prog: 'Chegada e transfer para o hotel no mini-bus. Tarde livre nas piscinas. Jantar no hotel.',
     locais: [
       { nome: 'Aeroporto da Madeira (FNC)', placeId: PLACES.airport },
       { nome: 'Pestana Carlton', placeId: PLACES.hotel },
@@ -599,20 +615,16 @@ function familyModalHTML(fam, c) {
     { label: 'Hotel · 5 noites · meia pensão', val: c.hotel, sub: `${fam.quarto} (todo o quarto)` },
     { label: 'Voos easyJet · ida e volta', val: c.voo, sub: `${fam.pessoas.length} bilhetes (Porto ↔ Funchal)` },
   ];
-  if (c.carro > 0) {
-    linhasJa.push({ label: 'Aluguer de carro', val: c.carro, sub: '5 dias · 1 carro 5 lugares' });
+  if (c.transporte > 0) {
+    const g2 = FAMILIAS_GRUPO2.includes(fam.name);
+    linhasJa.push({ label: 'Mini-bus (autocarro privado)', val: c.transporte,
+      sub: g2 ? 'partilha dos dias 6 a 9 (chegam mais tarde)' : 'partilha dos 6 dias de serviço' });
   }
   if (c.ecotax > 0) {
     linhasJa.push({ label: 'Ecotax', val: c.ecotax, sub: `€2/adulto/noite · ${fam.pessoas.filter(p => p.cat === 'adulto').length} adultos` });
   }
 
   const linhasDepois = [];
-  if (c.parking > 0) {
-    linhasDepois.push({ label: 'Estacionamento no hotel', val: c.parking, sub: '€10/dia × 5 dias' });
-  }
-  if (c.gasolina > 0) {
-    linhasDepois.push({ label: 'Combustível', val: c.gasolina, sub: 'parte proporcional do total' });
-  }
   if (c.atracoes > 0) {
     linhasDepois.push({ label: 'Atrações', val: c.atracoes, sub: 'teleférico, Cesto Monte, Cabo Girão, etc.' });
   }
@@ -658,12 +670,12 @@ function familyModalHTML(fam, c) {
       <div class="m-total-card m-total-ja">
         <p class="m-tot-lbl">Pago já</p>
         <p class="m-tot-val">${eur(c.ja)}</p>
-        <p class="m-tot-sub">hotel · voos · carro · ecotax</p>
+        <p class="m-tot-sub">hotel · voos · mini-bus · ecotax</p>
       </div>
       <div class="m-total-card m-total-dep">
         <p class="m-tot-lbl">Pago durante</p>
         <p class="m-tot-val">${eur(c.depois)}</p>
-        <p class="m-tot-sub">parking · combustível · atrações · refeições</p>
+        <p class="m-tot-sub">atrações · refeições</p>
       </div>
     </div>
 
@@ -683,7 +695,7 @@ function familyModalHTML(fam, c) {
     <ul class="pessoas-list">${renderPessoas}</ul>
 
     <div class="m-note">
-      O hotel divide-se pelos ocupantes do quarto. Os carros, parking e combustível dividem-se pelas 22 pessoas do grupo (todos precisam de lugar). Voo, refeições, atrações e ecotax são individuais.
+      O hotel divide-se pelos ocupantes do quarto. O mini-bus divide-se por dia, só por quem está presente nesse dia. Voo, refeições, atrações e ecotax são individuais.
     </div>
   `;
 }
@@ -709,20 +721,16 @@ function personModalHTML(fam, pessoa, cp) {
   if (cp.voo > 0) {
     linhasJa.push({ label: 'Voo', val: cp.voo, sub: 'bilhete individual' });
   }
-  if (cp.carroShare > 0) {
-    linhasJa.push({ label: 'Quota-parte do aluguer de carro', val: cp.carroShare, sub: '€805 (5 carros) ÷ 22 pessoas' });
+  if (cp.transporteShare > 0) {
+    const g2 = FAMILIAS_GRUPO2.includes(fam.name);
+    linhasJa.push({ label: 'Quota-parte do mini-bus', val: cp.transporteShare,
+      sub: g2 ? 'dias 6–9 (chega mais tarde)' : 'autocarro privado · 6 dias' });
   }
   if (cp.ecotax > 0) {
     linhasJa.push({ label: 'Ecotax', val: cp.ecotax, sub: '€2 × 5 noites' });
   }
 
   const linhasDepois = [];
-  if (cp.parkShare > 0) {
-    linhasDepois.push({ label: 'Quota-parte do estacionamento', val: cp.parkShare, sub: '€250 ÷ 22 pessoas' });
-  }
-  if (cp.gasolShare > 0) {
-    linhasDepois.push({ label: 'Quota-parte do combustível', val: cp.gasolShare, sub: '€331 ÷ 22 pessoas' });
-  }
   if (cp.atr > 0) {
     linhasDepois.push({ label: 'Atrações', val: cp.atr, sub: pessoa.cat === 'crianca' ? 'meio preço (criança)' : 'preço normal' });
   }
@@ -774,10 +782,10 @@ function personModalHTML(fam, pessoa, cp) {
 
     <div class="m-note">
       ${pessoa.cat === 'bebe' ?
-        'Aurora paga só €62 de voo (tarifa de bebé) e a sua quota-parte de hotel, carros, parking e combustível. Não paga ecotax, refeições nem atrações.' :
+        'Aurora paga só €62 de voo (tarifa de bebé) e a sua quota-parte de hotel e mini-bus. Não paga ecotax, refeições nem atrações.' :
         pessoa.cat === 'crianca' ?
-        'Crianças menores de 13 anos pagam metade em refeições e atrações e estão isentas de ecotax. O hotel divide-se pelos ocupantes do quarto; os carros, parking e combustível dividem-se pelas 22 pessoas.' :
-        'O hotel divide-se pelos ocupantes do quarto. Os carros, parking e combustível dividem-se pelas 22 pessoas do grupo (todos precisam de lugar).'}
+        'Crianças menores de 13 anos pagam metade em refeições e atrações e estão isentas de ecotax. O hotel divide-se pelos ocupantes do quarto; o mini-bus divide-se por dia.' :
+        'O hotel divide-se pelos ocupantes do quarto. O mini-bus divide-se por dia, só por quem está presente nesse dia.'}
     </div>
   `;
 }
@@ -792,16 +800,14 @@ const totaisGlobais = familias.reduce((acc, f) => {
   acc.depois += c.depois;
   acc.hotel += c.hotel;
   acc.voo += c.voo;
-  acc.carro += c.carro;
+  acc.transporte += c.transporte;
   acc.ecotax += c.ecotax;
-  acc.parking += c.parking;
-  acc.gasolina += c.gasolina;
   acc.atracoes += c.atracoes;
   acc.refeicoes += c.refeicoes;
   acc.pessoas += c.ocupantes;
   return acc;
-}, { total: 0, ja: 0, depois: 0, hotel: 0, voo: 0, carro: 0, ecotax: 0,
-     parking: 0, gasolina: 0, atracoes: 0, refeicoes: 0, pessoas: 0 });
+}, { total: 0, ja: 0, depois: 0, hotel: 0, voo: 0, transporte: 0, ecotax: 0,
+     atracoes: 0, refeicoes: 0, pessoas: 0 });
 
 // Inserir no DOM os totais
 document.getElementById('totalTrip').textContent = eur(totaisGlobais.total);
@@ -813,7 +819,7 @@ document.getElementById('totalAvg').textContent = '~' + eur(totaisGlobais.total 
 document.getElementById('miHotel').textContent = eur(totaisGlobais.hotel);
 document.getElementById('miVoos').textContent = eur(totaisGlobais.voo);
 document.getElementById('miRef').textContent = eur(totaisGlobais.refeicoes);
-document.getElementById('miCarros').textContent = eur(totaisGlobais.carro + totaisGlobais.parking + totaisGlobais.gasolina);
+document.getElementById('miCarros').textContent = eur(totaisGlobais.transporte);
 
 // Cost table
 const costTbl = document.getElementById('costTable');
@@ -857,22 +863,23 @@ const categorias = {
     ],
     nota: 'Cesto easyJet. Cada bilhete = ida (€69,13) + volta (€107,82) para adultos e crianças. Bebé tem tarifa especial €31 + €31.',
   },
-  carros: {
-    lbl: 'Aluguer de carros · 5×',
-    val: totaisGlobais.carro,
+  minibus: {
+    lbl: 'Mini-bus · autocarro privado',
+    val: totaisGlobais.transporte,
     when: 'ja',
-    eyebrow: 'Pago já · Aluguer',
-    titulo: 'Aluguer de carros',
-    intro: '5 carros de 5 lugares cada (25 lugares para 22 pessoas, com 3 de margem). Conduzem: Adriano, Michael, Luís Oliveira, Jorge, Filipe. O custo é dividido pelo grupo todo, não por família.',
-    formula: '5 carros × €161 (5 dias)',
+    eyebrow: 'Pago já · Transporte',
+    titulo: 'Mini-bus (Planeta Azul)',
+    intro: 'Autocarro privado de 31 lugares com motorista, para todo o grupo. Inclui motorista, combustível e estacionamentos. Cada dia é dividido só por quem está cá nesse dia: a família do Jorge chega no dia 6, por isso não paga o passeio do dia 5 nem o transfer de partida do dia 10.',
+    formula: 'Soma dos 6 dias de serviço (com IVA 4%), repartida por dia',
     linhas: [
-      { txt: 'Carro 1 · Adriano (família Alexandra)', val: 161 },
-      { txt: 'Carro 2 · Michael (família Patricia)', val: 161 },
-      { txt: 'Carro 3 · Luís Oliveira (família Luís)', val: 161 },
-      { txt: 'Carro 4 · Filipe (família Ana Maria)', val: 161 },
-      { txt: 'Carro 5 · Jorge (família Jorge)', val: 161 },
+      { txt: '5/9 · Mercado, Teleférico, Monte', val: 329.18 * 1.04, sub: '÷ 17 (Jorge ainda não chegou)' },
+      { txt: '6/9 · Caniçal, Ponta de São Lourenço', val: 356.35 * 1.04, sub: '÷ 22' },
+      { txt: '7/9 · Santana, Caldeirão Verde, Ribeiro Frio', val: 378.29 * 1.04, sub: '÷ 22' },
+      { txt: '8/9 · Cabo Girão, Câmara de Lobos, Calheta', val: 378.29 * 1.04, sub: '÷ 22' },
+      { txt: '9/9 · Paúl da Serra, Fanal, Porto Moniz', val: 378.29 * 1.04, sub: '÷ 22' },
+      { txt: '10/9 · Transfer de partida', val: 172.95 * 1.04, sub: '÷ 17 (só quem parte neste dia)' },
     ],
-    nota: 'Os 5 carros são um recurso do grupo todo (cada pessoa precisa de um lugar). O custo do aluguer divide-se igualmente pelas 22 pessoas: ~€36,59 por pessoa.',
+    nota: 'Grupo 1 (17 pessoas, usa os 6 dias): ~€101 por pessoa. Família do Jorge (5 pessoas, só dias 6 a 9): ~€70 por pessoa. Acesso a Queimadas não é possível de autocarro — o grupo fica no Pico das Pedras. A ida da família do Jorge ao aeroporto no dia 11 é por conta deles.',
   },
   ecotax: {
     lbl: 'Ecotax',
@@ -888,37 +895,6 @@ const categorias = {
       { txt: 'Madalena (8), Emília (6), Ana (4), Aurora (1) · isentas', val: 0 },
     ],
     nota: 'Crianças <13 anos são isentas (regulamento da Madeira). Cobrada no check-out do hotel.',
-  },
-  parking: {
-    lbl: 'Estacionamento',
-    val: totaisGlobais.parking,
-    when: 'depois',
-    eyebrow: 'Pago durante · Hotel',
-    titulo: 'Estacionamento',
-    intro: 'Parque do hotel Pestana Carlton, €10/dia/carro. 5 carros × 5 dias.',
-    formula: '5 carros × €10/dia × 5 dias',
-    linhas: [
-      { txt: '5 carros × €10/dia × 5 dias', val: 250 },
-    ],
-    nota: 'Pago directamente ao hotel no check-out. Dividido pelas 22 pessoas (~€11,36/pessoa).',
-  },
-  gasolina: {
-    lbl: 'Combustível',
-    val: totaisGlobais.gasolina,
-    when: 'depois',
-    eyebrow: 'Pago durante · Combustível',
-    titulo: 'Combustível',
-    intro: 'Estimativa baseada nos quilómetros previstos para visitar a ilha durante os 5 dias.',
-    formula: '~560 km/carro × 5 carros × 6,5 L/100km × €1,82/L',
-    linhas: [
-      { txt: '~560 km por carro', val: null, sub: 'Distância média estimada para visitar a ilha' },
-      { txt: '~2 800 km no total (5 carros)', val: null },
-      { txt: 'Consumo médio · 6,5 L/100 km', val: null },
-      { txt: 'Preço gasolina · €1,82/L', val: null },
-      { txt: 'Custo por carro', val: 66.25 },
-      { txt: 'Custo total (×5 carros)', val: 331.24 },
-    ],
-    nota: 'Dividido pelas 22 pessoas do grupo (~€15,06/pessoa). Cada pessoa precisa de um lugar no carro, por isso todos contribuem — bebé incluído.',
   },
   atracoes: {
     lbl: 'Atrações',
@@ -961,7 +937,7 @@ const categorias = {
   },
 };
 
-const ordemCategorias = ['hotel', 'voos', 'carros', 'ecotax', 'parking', 'gasolina', 'atracoes', 'refeicoes'];
+const ordemCategorias = ['hotel', 'voos', 'minibus', 'ecotax', 'atracoes', 'refeicoes'];
 
 tbody.innerHTML = ordemCategorias.map(key => {
   const c = categorias[key];
