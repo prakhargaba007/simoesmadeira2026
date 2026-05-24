@@ -1020,13 +1020,20 @@ function openCategoryModal(cat) {
 
 
 // =====================================================
-// PAGAMENTOS
+// PAGAMENTOS — Reembolso dos VOOS já pagos pelo Adriano
 // =====================================================
 //
-// Reservas pagas pelo coordenador (Adriano), com base nos recibos easyJet e hotel.
-// Para marcar uma família como "acertou", muda paga: false → true aqui em baixo.
+// Só os VOOS easyJet estão pagos (recibos KCL63HT e KCL63SQ).
+// O hotel ainda não foi pago, por isso não entra aqui.
+//
+// COMO MARCAR PAGAMENTOS (hardcoded):
+//   - Família inteira pagou:  pago: true   na família
+//   - Só alguns membros pagaram: mete pago: true nesses membros
+//   O estado da família é calculado automaticamente:
+//     "pago" se todos os membros pagaram, "parcial" se alguns, senão "por pagar".
 
-const reservasPagas = [
+// Reservas pagas (recibos easyJet)
+const reservasVoos = [
   {
     ref: 'KCL63HT',
     titulo: 'Voos easyJet · Grupo 1',
@@ -1043,52 +1050,108 @@ const reservasPagas = [
     metodo: 'MasterCard ····2515 · 04/05/2026',
     doc: 'docs/voos-grupo2-KCL63SQ.pdf',
   },
+];
+
+// Reembolso por família e por pessoa (só voos).
+// Cada pessoa: { nome, voo, lugar, mala, pago }
+//   - voo:   tarifa do bilhete (ida+volta)
+//   - lugar: lugar selecionado (ida+volta); bebé = 0
+//   - mala:  quota-parte da mala de porão da família (dividida por todos os membros)
+//   - pago:  true se essa pessoa já reembolsou
+const reembolsosVoos = [
   {
-    ref: 'Hotel R1',
-    titulo: 'Hotel Pestana Carlton · Grupo 1',
-    detalhe: '7 quartos · 5–10 set · meia pensão (inclui ecotax)',
-    valor: 9588.20,
-    metodo: 'Reserva confirmada',
+    familia: 'Alexandra', grupo: 1,
+    nota: 'Adriano, Alexandra, Ana (4) e Aurora (bebé) · 1 mala dividida por 4',
+    pessoas: [
+      { nome: 'Adriano',    voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
+      { nome: 'Alexandra',  voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
+      { nome: 'Ana (4)',    voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
+      { nome: 'Aurora (1)', voo: 62.00,  lugar: 0,     mala: 10.24, pago: false, obs: 'bebé · sem lugar próprio' },
+    ],
   },
   {
-    ref: 'Hotel R2',
-    titulo: 'Hotel Pestana Carlton · Grupo 2',
-    detalhe: '2 quartos · 6–11 set · meia pensão (inclui ecotax)',
-    valor: 3257.20,
-    metodo: 'Reserva confirmada',
+    familia: 'Farrulo', grupo: 1,
+    nota: 'Manuel R. e Conceição · 1 mala dividida por 2',
+    pessoas: [
+      { nome: 'Manuel R.',  voo: 161.88, lugar: 17.48, mala: 20.49, pago: false },
+      { nome: 'Conceição',  voo: 161.88, lugar: 17.48, mala: 20.49, pago: false },
+    ],
+  },
+  {
+    familia: 'Pedro', grupo: 1,
+    nota: 'Voa de outro local e comprou o próprio voo — não deve reembolso de voo.',
+    pessoas: [
+      { nome: 'Pedro', voo: 0, lugar: 0, mala: 0, pago: true, obs: 'voo à parte' },
+    ],
+  },
+  {
+    familia: 'Patricia', grupo: 1,
+    nota: 'Patrícia, Michael, Madalena (8) e Emília (6) · 1 mala dividida por 4',
+    pessoas: [
+      { nome: 'Patrícia',     voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
+      { nome: 'Michael',      voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
+      { nome: 'Madalena (8)', voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
+      { nome: 'Emília (6)',   voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
+    ],
+  },
+  {
+    familia: 'Carmo', grupo: 1,
+    nota: 'Manuel O. e Carmo · 1 mala dividida por 2',
+    pessoas: [
+      { nome: 'Manuel O.', voo: 161.88, lugar: 17.48, mala: 20.49, pago: false },
+      { nome: 'Carmo',     voo: 161.88, lugar: 17.48, mala: 20.49, pago: false },
+    ],
+  },
+  {
+    familia: 'Luís', grupo: 1,
+    nota: 'Luís e João Pedro · sem mala de porão',
+    pessoas: [
+      { nome: 'Luís',       voo: 161.88, lugar: 17.48, mala: 0, pago: false },
+      { nome: 'João Pedro', voo: 161.88, lugar: 17.48, mala: 0, pago: false },
+    ],
+  },
+  {
+    familia: 'Ana Maria', grupo: 1,
+    nota: 'Filipe e Ana Maria · 1 mala dividida por 2',
+    pessoas: [
+      { nome: 'Filipe',    voo: 161.88, lugar: 17.48, mala: 20.49, pago: false },
+      { nome: 'Ana Maria', voo: 161.88, lugar: 17.48, mala: 20.49, pago: false },
+    ],
+  },
+  {
+    familia: 'Jorge', grupo: 2,
+    nota: 'Tiago (17), Fátima e Jorge · 6–11 set · 1 mala dividida por 3',
+    pessoas: [
+      { nome: 'Tiago (17)', voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
+      { nome: 'Fátima',     voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
+      { nome: 'Jorge',      voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
+    ],
+  },
+  {
+    familia: 'Jorginho', grupo: 2,
+    nota: 'Jorge Miguel e Susete (filho do Jorge) · 6–11 set · sem mala',
+    pessoas: [
+      { nome: 'Jorge Miguel', voo: 125.48, lugar: 17.48, mala: 0, pago: false },
+      { nome: 'Susete',       voo: 125.48, lugar: 17.48, mala: 0, pago: false },
+    ],
   },
 ];
 
-// Reembolso por família = voos (real, do recibo) + hotel (real) + ecotax
-// Estes valores são a PARTE JÁ PAGA pelo Adriano que cada família deve devolver.
-// paga: true marca como acertado (verde).
-const reembolsos = [
-  // Grupo 1
-  { familia: 'Alexandra', voos: 641.06, hotel: 1467, ecotax: 20, paga: false,
-    nota: '2 ad + Ana(4) + Aurora(bebé) · 1 mala da família' },
-  { familia: 'Farrulo', voos: 399.70, hotel: 1383, ecotax: 20, paga: false,
-    nota: '2 adultos · 1 mala da família' },
-  { familia: 'Pedro', voos: 0, hotel: 992, ecotax: 10, paga: false,
-    nota: 'voo à parte (não pago pelo Adriano) · vista cidade' },
-  { familia: 'Patricia', voos: 758.42, hotel: 1467, ecotax: 20, paga: false,
-    nota: '2 ad + Madalena(8) + Emília(6) · 1 mala da família' },
-  { familia: 'Carmo', voos: 399.70, hotel: 1383, ecotax: 20, paga: false,
-    nota: '2 adultos · 1 mala da família' },
-  { familia: 'Luís', voos: 358.72, hotel: 1383, ecotax: 20, paga: false,
-    nota: '2 adultos · sem mala' },
-  { familia: 'Ana Maria', voos: 399.70, hotel: 1383, ecotax: 20, paga: false,
-    nota: '2 adultos · 1 mala da família' },
-  // Grupo 2
-  { familia: 'Jorge', voos: 470.86, hotel: 1824, ecotax: 30, paga: false,
-    nota: '3 adultos · 6–11 set · 1 mala da família' },
-  { familia: 'Jorginho', voos: 285.92, hotel: 1383, ecotax: 20, paga: false,
-    nota: '2 adultos · 6–11 set · vista piscina · sem mala' },
-];
+// Helpers
+const pessoaTotal = (p) => p.voo + p.lugar + p.mala;
+const familiaTotal = (f) => f.pessoas.reduce((s, p) => s + pessoaTotal(p), 0);
+const familiaPago  = (f) => f.pessoas.filter(p => p.pago).reduce((s, p) => s + pessoaTotal(p), 0);
+function familiaEstado(f) {
+  const pagos = f.pessoas.filter(p => p.pago).length;
+  if (pagos === 0) return 'por pagar';
+  if (pagos === f.pessoas.length) return 'pago';
+  return 'parcial';
+}
 
-// --- Render reservas pagas ---
+// --- Render reservas (recibos) ---
 const payBookingsEl = document.getElementById('payBookings');
 if (payBookingsEl) {
-  payBookingsEl.innerHTML = reservasPagas.map(r => `
+  payBookingsEl.innerHTML = reservasVoos.map(r => `
     <li class="pay-booking">
       <div class="pay-booking-info">
         <p class="pay-booking-title">${r.titulo}</p>
@@ -1106,67 +1169,86 @@ if (payBookingsEl) {
     </li>
   `).join('');
 
-  const totalAdiantado = reservasPagas.reduce((s, r) => s + r.valor, 0);
-  document.getElementById('payTotalAdiantado').textContent = eur(totalAdiantado);
+  const totalVoos = reservasVoos.reduce((s, r) => s + r.valor, 0);
+  document.getElementById('payTotalAdiantado').textContent = eur(totalVoos);
 }
 
-// --- Render reembolsos por família ---
+// --- Render reembolsos por família (com detalhe por pessoa) ---
 const payFamiliesEl = document.getElementById('payFamilies');
 if (payFamiliesEl) {
-  function renderReembolsos() {
-    payFamiliesEl.innerHTML = reembolsos.map((r, i) => {
-      const total = r.voos + r.hotel + r.ecotax;
+  payFamiliesEl.innerHTML = reembolsosVoos.map((f, i) => {
+    const total = familiaTotal(f);
+    const estado = familiaEstado(f);
+    const estadoLabel = { 'pago': 'pago', 'parcial': 'parcial', 'por pagar': 'por pagar' }[estado];
+    const estadoClass = { 'pago': 'pay-fam-paga', 'parcial': 'pay-fam-parcial', 'por pagar': '' }[estado];
+
+    const pessoasHTML = f.pessoas.map(p => {
+      const pt = pessoaTotal(p);
+      const partes = [`voo ${eur2(p.voo)}`];
+      if (p.lugar) partes.push(`lugar ${eur2(p.lugar)}`);
+      if (p.mala) partes.push(`mala ${eur2(p.mala)}`);
       return `
-        <li class="pay-fam ${r.paga ? 'pay-fam-paga' : ''}" data-idx="${i}">
-          <div class="pay-fam-check">
-            <span class="pay-check">${r.paga ? '✓' : ''}</span>
+        <li class="pay-pessoa ${p.pago ? 'pay-pessoa-paga' : ''}">
+          <span class="pay-pessoa-check">${p.pago ? '✓' : '○'}</span>
+          <div class="pay-pessoa-info">
+            <span class="pay-pessoa-nome">${p.nome}</span>
+            <span class="pay-pessoa-detail">${partes.join(' · ')}${p.obs ? ` · ${p.obs}` : ''}</span>
           </div>
-          <div class="pay-fam-info">
-            <p class="pay-fam-name">${r.familia}</p>
-            <p class="pay-fam-nota">${r.nota}</p>
-            <p class="pay-fam-breakdown">voos ${eur(r.voos)} · hotel ${eur(r.hotel)} · ecotax ${eur(r.ecotax)}</p>
-          </div>
-          <div class="pay-fam-amt">
-            <p class="pay-fam-total">${eur(total)}</p>
-            <p class="pay-fam-status">${r.paga ? 'pago' : 'por pagar'}</p>
-          </div>
+          <span class="pay-pessoa-val">${pt > 0 ? eur2(pt) : '—'}</span>
         </li>
       `;
     }).join('');
 
-    payFamiliesEl.querySelectorAll('.pay-fam').forEach(el => {
-      el.addEventListener('click', () => {
-        const idx = parseInt(el.dataset.idx, 10);
-        reembolsos[idx].paga = !reembolsos[idx].paga;
-        renderReembolsos();
-        renderPaySummary();
-      });
-    });
-  }
-
-  function renderPaySummary() {
-    const totalDevido = reembolsos.reduce((s, r) => s + r.voos + r.hotel + r.ecotax, 0);
-    const totalPago = reembolsos.filter(r => r.paga).reduce((s, r) => s + r.voos + r.hotel + r.ecotax, 0);
-    const emFalta = totalDevido - totalPago;
-    const nPagas = reembolsos.filter(r => r.paga).length;
-
-    const summaryEl = document.getElementById('paySummary');
-    summaryEl.innerHTML = `
-      <div class="pay-sum-row">
-        <span>Já reembolsado</span>
-        <strong class="pay-sum-pago">${eur(totalPago)}</strong>
-      </div>
-      <div class="pay-sum-row">
-        <span>Em falta</span>
-        <strong class="pay-sum-falta">${eur(emFalta)}</strong>
-      </div>
-      <div class="pay-sum-bar">
-        <div class="pay-sum-fill" style="width: ${totalDevido > 0 ? (totalPago/totalDevido*100) : 0}%"></div>
-      </div>
-      <p class="pay-sum-note">${nPagas} de ${reembolsos.length} famílias acertaram · total a reembolsar ${eur(totalDevido)}</p>
+    return `
+      <li class="pay-fam ${estadoClass}">
+        <button class="pay-fam-head" data-idx="${i}" aria-expanded="false">
+          <div class="pay-fam-info">
+            <p class="pay-fam-name">${f.familia}<span class="pay-fam-chevron" aria-hidden="true">⌄</span></p>
+            <p class="pay-fam-nota">${f.nota}</p>
+          </div>
+          <div class="pay-fam-amt">
+            <p class="pay-fam-total">${eur(total)}</p>
+            <p class="pay-fam-status">${estadoLabel}</p>
+          </div>
+        </button>
+        <ul class="pay-pessoas" hidden>
+          ${pessoasHTML}
+        </ul>
+      </li>
     `;
-  }
+  }).join('');
 
-  renderReembolsos();
-  renderPaySummary();
+  // Toggle expand/collapse
+  payFamiliesEl.querySelectorAll('.pay-fam-head').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const li = btn.closest('.pay-fam');
+      const lista = li.querySelector('.pay-pessoas');
+      const aberto = !lista.hidden;
+      lista.hidden = aberto;
+      btn.setAttribute('aria-expanded', String(!aberto));
+      li.classList.toggle('pay-fam-open', !aberto);
+    });
+  });
+
+  // Summary
+  const totalDevido = reembolsosVoos.reduce((s, f) => s + familiaTotal(f), 0);
+  const totalPago = reembolsosVoos.reduce((s, f) => s + familiaPago(f), 0);
+  const emFalta = totalDevido - totalPago;
+  const nFamPagas = reembolsosVoos.filter(f => familiaEstado(f) === 'pago').length;
+  const nFamTotal = reembolsosVoos.filter(f => familiaTotal(f) > 0).length;
+
+  document.getElementById('paySummary').innerHTML = `
+    <div class="pay-sum-row">
+      <span>Já reembolsado</span>
+      <strong class="pay-sum-pago">${eur(totalPago)}</strong>
+    </div>
+    <div class="pay-sum-row">
+      <span>Em falta</span>
+      <strong class="pay-sum-falta">${eur(emFalta)}</strong>
+    </div>
+    <div class="pay-sum-bar">
+      <div class="pay-sum-fill" style="width: ${totalDevido > 0 ? (totalPago/totalDevido*100) : 0}%"></div>
+    </div>
+    <p class="pay-sum-note">${nFamPagas} de ${nFamTotal} famílias acertaram · total a reembolsar ${eur(totalDevido)}</p>
+  `;
 }
