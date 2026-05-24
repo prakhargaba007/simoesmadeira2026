@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f3a2e">
+<title>Madeira 2026 · Sol, mar e levadas</title>
+<meta name="description" content="Proposta de viagem em família · Pestana Carlton · 5 a 10 setembro 2026 · 22 pessoas · 9 quartos · 5 noites">
+
+<!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Madeira 2026 · Sol, mar e levadas">
+<meta property="og:description" content="Proposta de viagem em família · Pestana Carlton · 5 a 10 setembro 2026 · 22 pessoas, 9 quartos, 5 noites.">
+<meta property="og:image" content="https://adrianoapmartins.github.io/simoesmadeira2026/social-card.jpg">
+<meta property="og:image:secure_url" content="https://adrianoapmartins.github.io/simoesmadeira2026/social-card.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pestana Carlton Madeira — piscina e vista para o oceano">
+<meta property="og:url" content="https://adrianoapmartins.github.io/simoesmadeira2026/">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:site_name" content="Família Simões · Madeira 2026">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Madeira 2026 · Sol, mar e levadas">
+<meta name="twitter:description" content="Proposta de viagem em família · 5–10 setembro 2026">
+<meta name="twitter:image" content="https://adrianoapmartins.github.io/simoesmadeira2026/social-card.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500&family=Manrope:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- LOGIN GATE                                                   -->
+<!-- ============================================================ -->
+<section id="gate" class="gate">
+  <div class="gate-bg"></div>
+  <div class="gate-content">
+    <div class="gate-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+    </div>
+    <p class="gate-eyebrow">Família Simões · 2026</p>
+    <h1 class="gate-title"><em>Madeira</em></h1>
+    <p class="gate-sub">5 a 10 de setembro</p>
+    <form id="gateForm" class="gate-form" autocomplete="off">
+      <label for="pwd" class="sr-only">Palavra-passe</label>
+      <input type="password" id="pwd" name="pwd" placeholder="palavra-passe" autocomplete="off" required>
+      <button type="submit" aria-label="Entrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </form>
+    <p id="gateError" class="gate-error" hidden>palavra-passe incorreta</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MAIN APP                                                     -->
+<!-- ============================================================ -->
+<main id="app" class="app" hidden>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <nav class="topbar">
+      <span class="topbar-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      </span>
+      <span class="topbar-title">Madeira <em>'26</em></span>
+      <button id="logoutBtn" class="topbar-btn" aria-label="Sair">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      </button>
+    </nav>
+
+    <div class="hero-text">
+      <p class="hero-eyebrow">Proposta · viagem em família</p>
+      <h1 class="hero-title">Sol, mar <em>e levadas</em></h1>
+      <p class="hero-sub">Pestana Carlton · meia pensão · 5 a 10 setembro 2026</p>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">22</span>
+        <span class="stat-lbl">pessoas</span>
+      </div>
+      <span class="stat-divider"></span>
+      <div class="stat">
+        <span class="stat-num">9</span>
+        <span class="stat-lbl">quartos</span>
+      </div>
+      <span class="stat-divider"></span>
+      <div class="stat">
+        <span class="stat-num">5</span>
+        <span class="stat-lbl">noites</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- TABS -->
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-tab="resumo" role="tab">Resumo</button>
+    <button class="tab" data-tab="hotel" role="tab">Hotel</button>
+    <button class="tab" data-tab="programa" role="tab">Programa</button>
+    <button class="tab" data-tab="custos" role="tab">Custos</button>
+    <button class="tab" data-tab="pagamentos" role="tab">Pagamentos</button>
+  </nav>
+
+  <!-- ============================================================ -->
+  <!-- TAB: RESUMO                                                  -->
+  <!-- ============================================================ -->
+  <section class="tab-panel active" data-panel="resumo">
+
+    <h3 class="section-h section-h-first">Custo por família</h3>
+    <p class="section-intro">Toca em cada família para ver o detalhe das despesas. <strong>Já</strong> = pago nas próximas semanas (hotel, voos, carro, ecotax). <strong>Depois</strong> = pago durante a viagem.</p>
+
+    <ul class="families families-hero" id="familiesHero"></ul>
+
+    <div class="card card-feature">
+      <p class="card-eyebrow">Total da viagem</p>
+      <h2 class="card-amount" id="totalTrip">€22 297</h2>
+      <p class="card-sub" id="totalAvg">~€1 014 por pessoa em média</p>
+
+      <div class="card-split">
+        <div class="split-block">
+          <p class="split-lbl">Pago já</p>
+          <p class="split-val" id="totalJa">€16 916</p>
+        </div>
+        <span class="split-divider"></span>
+        <div class="split-block">
+          <p class="split-lbl">Pago durante</p>
+          <p class="split-val" id="totalDepois">€5 381</p>
+        </div>
+      </div>
+
+      <p class="card-foot">"Já" inclui hotel, voos, carros e ecotax — pagos nas próximas semanas. "Depois" é pago no destino.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="mini">
+        <p class="mini-lbl">Hotel</p>
+        <p class="mini-val" id="miHotel">€12 730</p>
+        <p class="mini-foot">5 noites · meia pensão</p>
+      </div>
+      <div class="mini">
+        <p class="mini-lbl">Voos</p>
+        <p class="mini-val" id="miVoos">€3 341</p>
+        <p class="mini-foot">21 lugares</p>
+      </div>
+      <div class="mini">
+        <p class="mini-lbl">Refeições</p>
+        <p class="mini-val" id="miRef">€3 900</p>
+        <p class="mini-foot">almoços + bebidas</p>
+      </div>
+      <div class="mini">
+        <p class="mini-lbl">Carros</p>
+        <p class="mini-val" id="miCarros">€1 386</p>
+        <p class="mini-foot">5 carros · gasolina · parking</p>
+      </div>
+    </div>
+
+    <h3 class="section-h">Datas importantes</h3>
+    <ul class="dates">
+      <li><span class="dot"></span><strong>Sáb 5 set</strong><span class="date-meta">chegada · check-in 15h00</span></li>
+      <li><span class="dot"></span><strong>Qui 10 set</strong><span class="date-meta">saída · voo 15h15</span></li>
+    </ul>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TAB: HOTEL                                                   -->
+  <!-- ============================================================ -->
+  <section class="tab-panel" data-panel="hotel">
+
+    <div class="card card-hotel">
+      <p class="card-eyebrow">Onde ficamos</p>
+      <h2 class="hotel-name">Pestana Carlton <em>Madeira</em></h2>
+      <p class="hotel-loc">Largo António Nobre · Funchal</p>
+      <div class="hotel-tags">
+        <span class="chip">5★</span>
+        <span class="chip">Meia pensão</span>
+        <span class="chip">Centro do Funchal</span>
+        <span class="chip">Piscinas</span>
+      </div>
+      <a id="hotelMapLink" href="#" target="_blank" rel="noopener" class="map-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        <span>Ver no Google Maps</span>
+      </a>
+    </div>
+
+    <div class="alert alert-warn">
+      <span class="alert-icon">⚠</span>
+      <div>
+        <strong>A meia pensão NÃO inclui bebidas.</strong>
+        Pequeno-almoço e jantar buffet estão incluídos. Águas, vinho, sumos e cafés são pagos à parte.
+        Estimámos €10/adulto/dia para bebidas ao jantar (já incluído no orçamento).
+      </div>
+    </div>
+
+    <h3 class="section-h">Distribuição de quartos</h3>
+    <ul class="rooms" id="rooms"></ul>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TAB: PROGRAMA                                                -->
+  <!-- ============================================================ -->
+  <section class="tab-panel" data-panel="programa">
+
+    <h3 class="section-h section-h-first">Programa diário</h3>
+    <p class="section-intro">Adaptado a famílias com bebé e crianças. Sem trilhos longos. Tarde livre nas piscinas sempre que dá.</p>
+
+    <ol class="timeline" id="timeline"></ol>
+
+    <h3 class="section-h">Voos easyJet</h3>
+    <div class="flights">
+      <article class="flight">
+        <div class="flight-header">
+          <span class="flight-route">Porto → Funchal</span>
+          <span class="flight-num">EJU6863</span>
+        </div>
+        <div class="flight-times">
+          <div class="flight-time">
+            <p class="time-hr">06:25</p>
+            <p class="time-day">sáb 5/9</p>
+            <p class="time-airport">OPO</p>
+          </div>
+          <div class="flight-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M16 6l6 6-6 6"/></svg>
+          </div>
+          <div class="flight-time">
+            <p class="time-hr">08:30</p>
+            <p class="time-day">sáb 5/9</p>
+            <p class="time-airport">FNC</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="flight">
+        <div class="flight-header">
+          <span class="flight-route">Funchal → Porto</span>
+          <span class="flight-num">EJU6834</span>
+        </div>
+        <div class="flight-times">
+          <div class="flight-time">
+            <p class="time-hr">15:15</p>
+            <p class="time-day">qui 10/9</p>
+            <p class="time-airport">FNC</p>
+          </div>
+          <div class="flight-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M16 6l6 6-6 6"/></svg>
+          </div>
+          <div class="flight-time">
+            <p class="time-hr">17:15</p>
+            <p class="time-day">qui 10/9</p>
+            <p class="time-airport">OPO</p>
+          </div>
+        </div>
+      </article>
+
+      <div class="flight-prices">
+        <div class="fp-row">
+          <span class="fp-cat">Adulto · 18 bilhetes</span>
+          <span class="fp-val">€176,95 / pessoa</span>
+        </div>
+        <div class="fp-row">
+          <span class="fp-cat">Criança · 3 bilhetes</span>
+          <span class="fp-val">€176,95 / pessoa</span>
+        </div>
+        <div class="fp-row">
+          <span class="fp-cat">Bebé · 1 bilhete</span>
+          <span class="fp-val">€62,00</span>
+        </div>
+        <div class="fp-row fp-total">
+          <span class="fp-cat">Total dos voos</span>
+          <span class="fp-val">€3 777,95</span>
+        </div>
+      </div>
+
+      <p class="flight-note">Tarifa Light · mala de cabine pequena incluída.</p>
+    </div>
+
+    <h3 class="section-h">Logística rodoviária</h3>
+    <div class="logistics">
+      <p><strong>5 carros alugados</strong> · 5 lugares cada · 25 lugares para 22 pessoas</p>
+      <p>Conduzem: <strong>Adriano · Michael · Luís Oliveira · Jorge · Filipe</strong></p>
+      <p class="muted">Os outros vão de boleia. Sobram 3 lugares para flexibilidade.</p>
+
+      <div class="logistics-stats">
+        <div class="lstat">
+          <p class="lstat-val">~560 km</p>
+          <p class="lstat-lbl">por carro</p>
+        </div>
+        <span class="lstat-divider"></span>
+        <div class="lstat">
+          <p class="lstat-val">~2 800 km</p>
+          <p class="lstat-lbl">no total</p>
+        </div>
+        <span class="lstat-divider"></span>
+        <div class="lstat">
+          <p class="lstat-val">~€331</p>
+          <p class="lstat-lbl">gasolina total</p>
+        </div>
+      </div>
+
+      <p class="muted lstat-note">Estimativa: 6,5 L/100 km · €1,82/L · ~€66 de gasolina por carro durante a viagem.</p>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TAB: CUSTOS                                                  -->
+  <!-- ============================================================ -->
+  <section class="tab-panel" data-panel="custos">
+
+    <div class="alert alert-info">
+      <span class="alert-icon">i</span>
+      <div>
+        <strong>Sobre os preços.</strong> Todos os valores foram consultados recentemente e são uma estimativa. Podem variar até ao momento da reserva de cada serviço (hotel, voos, atrações, restaurantes).
+      </div>
+    </div>
+
+    <h3 class="section-h section-h-first">Custo por família</h3>
+    <p class="section-intro">Total a pagar por cada quarto. O quarto-família custa o mesmo independentemente de quantas pessoas lá dormem.</p>
+
+    <ul class="families" id="families"></ul>
+
+    <h3 class="section-h">Como dividimos as despesas</h3>
+    <div class="how">
+      <div class="how-row">
+        <span class="how-tag">Quarto</span>
+        <p>O hotel <strong>divide-se entre os ocupantes do quarto</strong> (cada quarto tem o seu preço fixo).</p>
+      </div>
+      <div class="how-row">
+        <span class="how-tag">Grupo</span>
+        <p>Carros, parking e combustível <strong>dividem-se pelas 22 pessoas</strong>, porque cada um precisa de um lugar no carro (incluindo o bebé).</p>
+      </div>
+      <div class="how-row">
+        <span class="how-tag">Pessoa</span>
+        <p>Voo, refeições, atrações e ecotax <strong>são individuais</strong>. Crianças pagam metade. Bebés não pagam refeições nem atrações.</p>
+      </div>
+      <div class="how-row">
+        <span class="how-tag">Ecotax</span>
+        <p>€2/pessoa/noite (€10 total). <strong>Crianças menores de 13 anos isentas</strong>.</p>
+      </div>
+    </div>
+
+    <h3 class="section-h">Detalhe do orçamento</h3>
+    <table class="cost-table" id="costTable">
+      <tbody></tbody>
+    </table>
+
+    <p class="footnote">Valores arredondados · estimativa baseada em preços recentes · sujeitos a variação até à reserva.</p>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- TAB: PAGAMENTOS                                              -->
+  <!-- ============================================================ -->
+  <section class="tab-panel" data-panel="pagamentos">
+
+    <h3 class="section-h section-h-first">Pagamentos adiantados</h3>
+    <p class="section-intro">O que já foi reservado e pago pelo Adriano. Cada família reembolsa a sua parte.</p>
+
+    <ul class="pay-bookings" id="payBookings"></ul>
+
+    <div class="card card-feature pay-feature">
+      <p class="card-eyebrow">Total adiantado</p>
+      <h2 class="card-amount" id="payTotalAdiantado">€16 559</h2>
+      <p class="card-sub">voos, lugares, malas e hotel já pagos</p>
+    </div>
+
+    <h3 class="section-h">Informações de voo</h3>
+    <p class="section-intro">Códigos de reserva e números de voo para consulta rápida no check-in e no aeroporto.</p>
+
+    <div class="flight-ref">
+      <div class="flight-ref-head">
+        <span class="flight-ref-group">Grupo 1 · 16 pessoas</span>
+        <span class="flight-ref-code">KCL63HT</span>
+      </div>
+      <div class="flight-ref-legs">
+        <div class="flight-ref-leg">
+          <span class="frl-dir">Ida · sáb 5/9</span>
+          <span class="frl-num">EJU6863</span>
+          <span class="frl-time">06:25 → 08:30 · OPO → FNC</span>
+        </div>
+        <div class="flight-ref-leg">
+          <span class="frl-dir">Volta · qui 10/9</span>
+          <span class="frl-num">EJU6834</span>
+          <span class="frl-time">15:15 → 17:15 · FNC → OPO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flight-ref">
+      <div class="flight-ref-head">
+        <span class="flight-ref-group">Grupo 2 · 5 pessoas</span>
+        <span class="flight-ref-code">KCL63SQ</span>
+      </div>
+      <div class="flight-ref-legs">
+        <div class="flight-ref-leg">
+          <span class="frl-dir">Ida · dom 6/9</span>
+          <span class="frl-num">EJU6831</span>
+          <span class="frl-time">07:00 → 09:05 · OPO → FNC</span>
+        </div>
+        <div class="flight-ref-leg">
+          <span class="frl-dir">Volta · sex 11/9</span>
+          <span class="frl-num">EJU6840</span>
+          <span class="frl-time">16:20 → 18:20 · FNC → OPO</span>
+        </div>
+      </div>
+      <p class="flight-ref-note">Grupo 2: Tiago, Fátima, Jorge, Jorge Miguel e Susete.</p>
+    </div>
+
+    <h3 class="section-h">Reembolso por família</h3>
+    <p class="section-intro">Quanto cada família deve ao Adriano pelos voos + hotel já pagos. As malas de porão estão incluídas no valor da família (divididas por todos os seus membros). Toca para marcar como acertado.</p>
+
+    <ul class="pay-families" id="payFamilies"></ul>
+
+    <div class="pay-summary" id="paySummary"></div>
+
+    <p class="footnote">Os custos da viagem (carros, gasolina, refeições, atrações) são acertados durante ou após a viagem.</p>
+
+  </section>
+
+  <footer class="foot">
+    <p>Proposta preparada com carinho · Família Simões · 2026</p>
+  </footer>
+
+</main>
+
+<!-- ============================================================ -->
+<!-- MODAL                                                        -->
+<!-- ============================================================ -->
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-panel">
+    <header class="modal-header">
+      <button id="modalBack" class="modal-back" hidden aria-label="Voltar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <span class="modal-bar"></span>
+      <button id="modalClose" class="modal-close" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </header>
+    <div id="modalContent" class="modal-content"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
