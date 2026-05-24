@@ -2378,3 +2378,120 @@ body {
   flex-shrink: 0;
   white-space: nowrap;
 }
+
+/* =====================================================
+   TIMELINE — horário, trilhos, almoços
+   ===================================================== */
+/* Horário detalhado */
+.tl-schedule {
+  list-style: none;
+  margin: 0.875rem 0 0;
+  padding: 0;
+  border-left: 2px solid var(--sand-warm);
+}
+.tl-sched-row {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0.625rem;
+  padding: 0.4rem 0 0.4rem 0.875rem;
+  position: relative;
+}
+.tl-sched-row::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 0.7rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-deep);
+}
+.tl-sched-h {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green-deep);
+  letter-spacing: 0.02em;
+}
+.tl-sched-txt {
+  font-size: 12.5px;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+/* Trilho / caminhada */
+.tl-trail {
+  margin-top: 0.875rem;
+  padding: 0.875rem 1rem;
+  background: #eef3ec;
+  border: 1px solid #d4e2cd;
+  border-radius: var(--radius-sm);
+}
+.tl-trail-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--green-deep);
+}
+.tl-trail-head svg { width: 16px; height: 16px; flex-shrink: 0; }
+.tl-trail-line {
+  font-size: 12px;
+  color: var(--ink);
+  margin: 0.25rem 0 0;
+  line-height: 1.45;
+}
+.tl-trail-line strong { color: var(--green-deep); }
+
+/* Almoços */
+.tl-lunch {
+  margin-top: 0.875rem;
+  padding: 0.875rem 1rem;
+  background: var(--paper);
+  border: 1px solid var(--sand-warm);
+  border-radius: var(--radius-sm);
+}
+.tl-lunch-title {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--terracotta, #b5713f);
+  margin: 0 0 0.625rem;
+}
+.tl-lunch-item { margin-bottom: 0.625rem; }
+.tl-lunch-name {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--ink);
+  margin: 0;
+}
+.tl-lunch-desc {
+  font-size: 12px;
+  color: var(--ink-mute);
+  margin: 2px 0 0;
+  line-height: 1.45;
+}
+.tl-lunch-foot {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--ink-mute);
+  margin: 0.5rem 0 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--sand-warm);
+}
+
+/* Nota especial */
+.tl-nota {
+  margin-top: 0.875rem;
+  padding: 0.75rem 1rem;
+  background: #fdf3e6;
+  border-left: 3px solid #e0a960;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #7a5418;
+  line-height: 1.45;
+}

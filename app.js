@@ -383,9 +383,15 @@ const PLACES = {
   caboGirao:       'ChIJM4MGcC1fYAwRpDwTa-2e1Ak',  // Cabo Girão
   camaraLobos:     'ChIJyR0p1JleYAwR0D-Q5L3rAAQ',  // Câmara de Lobos
   portoMoniz:      'ChIJJw94bTZJYAwRfPk3g8xkNWU',  // Porto Moniz piscinas naturais
+  calheta:         'Praia+da+Calheta+Madeira',     // pesquisa por nome
+  paulSerra:       'Paul+da+Serra+Madeira',        // pesquisa por nome
+  fanal:           'Fanal+Madeira',                // pesquisa por nome
 };
 
-const mapLink = (placeId) => `https://www.google.com/maps/place/?q=place_id:${placeId}`;
+// Place ID começa com "ChIJ"; caso contrário tratamos como pesquisa por texto
+const mapLink = (placeId) => placeId && placeId.startsWith('ChIJ')
+  ? `https://www.google.com/maps/place/?q=place_id:${placeId}`
+  : `https://www.google.com/maps/search/?api=1&query=${placeId}`;
 
 // =====================================================
 // PROGRAMA
@@ -393,17 +399,23 @@ const mapLink = (placeId) => `https://www.google.com/maps/place/?q=place_id:${pl
 const programa = [
   {
     day: 'Sáb 5/9',
-    theme: 'Chegada',
-    prog: 'Chegada e transfer para o hotel no mini-bus. Tarde livre nas piscinas. Jantar no hotel.',
-    locais: [
-      { nome: 'Aeroporto da Madeira (FNC)', placeId: PLACES.airport },
-      { nome: 'Pestana Carlton', placeId: PLACES.hotel },
+    theme: 'Chegada · Funchal',
+    prog: 'Chegada do grupo 1 de manhã. À tarde, primeiro contacto com o Funchal: Mercado dos Lavradores, teleférico do Monte e a descida nos famosos Carros de Cesto.',
+    horario: [
+      { h: '08:30', txt: 'Aterragem do grupo 1 no aeroporto (voo EJU6863). Mini-bus recolhe o grupo.' },
+      { h: '09:30', txt: 'Check-in / largar malas no Pestana Carlton (ou guardar se ainda não houver quarto).' },
+      { h: '10:30', txt: 'Saída do hotel para o Mercado dos Lavradores.' },
+      { h: '11:00', txt: 'Mercado dos Lavradores — frutas exóticas, peixe, flores.' },
+      { h: '13:00', txt: 'Almoço no Funchal (ver sugestões).' },
+      { h: '15:00', txt: 'Teleférico do Monte (subida) + Jardim Tropical do Monte.' },
+      { h: '16:30', txt: 'Descida nos Carros de Cesto do Monte até Livramento.' },
+      { h: '18:00', txt: 'Regresso ao hotel. Tarde/noite livre nas piscinas.' },
+      { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
     ],
-  },
-  {
-    day: 'Dom 6/9',
-    theme: 'Funchal',
-    prog: 'Mercado dos Lavradores, teleférico do Monte, descida pelos Carros de Cesto. Almoço em Funchal.',
+    almoco: [
+      { nome: 'Peixaria no Mercado', desc: 'Mesmo no mercado, peixe e marisco fresco, esplanada animada. ~€20-40/pessoa.' },
+      { nome: '5 Sentidos', desc: 'Hidden gem escondido num beco do centro histórico, celebra produtos locais.' },
+    ],
     locais: [
       { nome: 'Mercado dos Lavradores', placeId: PLACES.mercado },
       { nome: 'Teleférico do Monte', placeId: PLACES.teleferico },
@@ -411,18 +423,54 @@ const programa = [
     ],
   },
   {
-    day: 'Seg 7/9',
-    theme: 'Leste',
-    prog: 'Museu da Baleia (Caniçal), miradouros da Ponta de São Lourenço.',
+    day: 'Dom 6/9',
+    theme: 'Leste · Ponta de São Lourenço',
+    prog: 'De manhã passamos pelo aeroporto para receber a família do Jorge. Depois seguimos para leste: Museu da Baleia no Caniçal e os miradouros da Ponta de São Lourenço.',
+    horario: [
+      { h: '08:45', txt: 'Saída do hotel. Passagem pelo aeroporto para buscar a família do Jorge (voo EJU6831, chega 09:05).' },
+      { h: '09:30', txt: 'Grupo completo reunido. Seguimos para o Caniçal.' },
+      { h: '10:30', txt: 'Museu da Baleia (Caniçal) — história da caça à baleia e conservação.' },
+      { h: '12:30', txt: 'Almoço no Caniçal (ver sugestões).' },
+      { h: '14:30', txt: 'Ponta de São Lourenço — miradouros e paisagem vulcânica.' },
+      { h: '17:30', txt: 'Regresso ao hotel.' },
+      { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
+    ],
+    trilho: {
+      nome: 'Ponta de São Lourenço (PR8)',
+      tempo: 'Versão curta ~45 min (ida e volta ao 1º miradouro); trilho completo ~3h (8 km)',
+      esforco: 'Moderado · sobe e desce, exposto ao sol e vento, sem sombra. Com crianças pequenas e bebé, fazer só o início até ao primeiro miradouro (fácil e plano).',
+    },
+    almoco: [
+      { nome: 'O Recanto (Caniçal)', desc: 'Gem local perto da Ponta de São Lourenço. Buffet de almoço, lapas, camarão. Menu ~€8.' },
+      { nome: 'Talho do Caniço', desc: 'Experiência autêntica: compra-se a carne e grelha-se. Come-se em pé, ambiente local. Só qui-sáb.' },
+    ],
     locais: [
       { nome: 'Museu da Baleia · Caniçal', placeId: PLACES.museuBaleia },
       { nome: 'Ponta de São Lourenço', placeId: PLACES.pontaSL },
     ],
   },
   {
-    day: 'Ter 8/9',
-    theme: 'Norte',
-    prog: 'Casas Típicas de Santana, Levada "Um Caminho para Todos" no Parque das Queimadas (acessível com carrinho), Posto do Ribeiro Frio.',
+    day: 'Seg 7/9',
+    theme: 'Norte · Santana',
+    prog: 'Dia no norte verdejante: as casas típicas de Santana, um passeio acessível na zona das Queimadas/Pico das Pedras e o posto florestal do Ribeiro Frio.',
+    horario: [
+      { h: '09:00', txt: 'Saída do hotel para Santana.' },
+      { h: '10:30', txt: 'Casas Típicas de Santana — as casinhas triangulares coloridas.' },
+      { h: '11:30', txt: 'Pico das Pedras → início do passeio (o autocarro não chega às Queimadas).' },
+      { h: '13:30', txt: 'Almoço em Santana (ver sugestões).' },
+      { h: '15:30', txt: 'Ribeiro Frio — posto florestal, viveiro de trutas, miradouros.' },
+      { h: '17:30', txt: 'Regresso ao hotel.' },
+      { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
+    ],
+    trilho: {
+      nome: 'Pico das Pedras → Queimadas (acesso à Levada do Caldeirão Verde)',
+      tempo: 'Pico das Pedras às Queimadas ~30-40 min a pé (plano); Caldeirão Verde completo ~5-6h ida e volta',
+      esforco: 'O troço até às Queimadas é fácil e plano. A Levada do Caldeirão Verde completa é longa e tem túneis — não recomendada com o bebé e crianças pequenas. Sugestão: ficar pela zona das Queimadas (relvado, casas de colmo) e fazer só um bocadinho da levada.',
+    },
+    almoco: [
+      { nome: 'Adega do Compadre (Santana)', desc: 'Gem local na rua principal, em frente às casas típicas. Comida caseira, sopa de trigo, espetada, preços ótimos.' },
+      { nome: 'Quinta do Furão', desc: 'Esplanada com vista de mar deslumbrante. Cozinha regional cuidada (rabo de boi, risotto de cogumelos). Mais caro mas memorável.' },
+    ],
     locais: [
       { nome: 'Casas Típicas de Santana', placeId: PLACES.santana },
       { nome: 'Parque das Queimadas', placeId: PLACES.queimadas },
@@ -430,19 +478,67 @@ const programa = [
     ],
   },
   {
-    day: 'Qua 9/9',
-    theme: 'Oeste',
-    prog: 'Cabo Girão (skywalk), Câmara de Lobos, almoço de espetadas. Possível ida a Porto Moniz.',
+    day: 'Ter 8/9',
+    theme: 'Oeste · Cabo Girão',
+    prog: 'Costa oeste: o skywalk de vidro do Cabo Girão, a vila piscatória de Câmara de Lobos e almoço de espetadas. À tarde, praia da Calheta.',
+    horario: [
+      { h: '09:30', txt: 'Saída do hotel para o Cabo Girão.' },
+      { h: '10:00', txt: 'Cabo Girão — skywalk de vidro, uma das falésias mais altas da Europa.' },
+      { h: '11:30', txt: 'Câmara de Lobos — vila piscatória, miradouro, poncha.' },
+      { h: '13:00', txt: 'Almoço de espetadas no Estreito de Câmara de Lobos (ver sugestões).' },
+      { h: '15:30', txt: 'Praia da Calheta — areia (importada) e águas calmas, boa para as crianças.' },
+      { h: '18:00', txt: 'Regresso ao hotel.' },
+      { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
+    ],
+    almoco: [
+      { nome: 'Casa de Santo António (Estreito)', desc: 'O mais famoso da ilha para espetada, aberto desde 1966, ainda na família fundadora. Espetada em pau de loureiro com milho frito.' },
+      { nome: 'Adega da Quinta (Estreito)', desc: 'Espetada com vista soberba sobre Câmara de Lobos, no antigo lagar da Quinta do Estreito. Acolhedor.' },
+    ],
     locais: [
       { nome: 'Cabo Girão', placeId: PLACES.caboGirao },
       { nome: 'Câmara de Lobos', placeId: PLACES.camaraLobos },
+      { nome: 'Praia da Calheta', placeId: PLACES.calheta },
+    ],
+  },
+  {
+    day: 'Qua 9/9',
+    theme: 'Noroeste · Porto Moniz',
+    prog: 'Travessia do planalto do Paúl da Serra, a floresta de fadas do Fanal e banho nas piscinas naturais de lava de Porto Moniz.',
+    horario: [
+      { h: '09:00', txt: 'Saída do hotel. Subida ao planalto do Paúl da Serra.' },
+      { h: '10:30', txt: 'Fanal — floresta de loureiros centenários, muitas vezes com névoa mística.' },
+      { h: '12:30', txt: 'Almoço em Porto Moniz (ver sugestões).' },
+      { h: '14:30', txt: 'Piscinas naturais de Porto Moniz — banho nas piscinas de lava vulcânica.' },
+      { h: '17:00', txt: 'Regresso ao hotel (pela costa ou pelo interior).' },
+      { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
+    ],
+    trilho: {
+      nome: 'Fanal (passeio livre na floresta)',
+      tempo: '~30-60 min de passeio livre, ao ritmo do grupo',
+      esforco: 'Fácil · terreno plano e largo, ideal para todas as idades. Pode estar húmido/enevoado — levar calçado fechado. O autocarro acede pela ER209.',
+    },
+    almoco: [
+      { nome: 'Cachalote (Porto Moniz)', desc: 'Sobre as rochas junto às piscinas naturais, vista para o mar. Peixe fresco, lapas, sopa de peixe.' },
+      { nome: 'Orca / Restaurante das Piscinas', desc: 'Junto às piscinas, prático e com boa relação qualidade-preço. Espetada e peixe do dia.' },
+    ],
+    locais: [
+      { nome: 'Paúl da Serra', placeId: PLACES.paulSerra },
+      { nome: 'Floresta do Fanal', placeId: PLACES.fanal },
       { nome: 'Porto Moniz', placeId: PLACES.portoMoniz },
     ],
   },
   {
     day: 'Qui 10/9',
-    theme: 'Saída',
-    prog: 'Manhã livre. Saída até às 12h. Voo às 15:15.',
+    theme: 'Partida (grupo 1)',
+    prog: 'Último dia do grupo 1. Manhã livre para piscinas ou compras de última hora. Transfer para o aeroporto. A família do Jorge fica até dia 11.',
+    horario: [
+      { h: '09:00', txt: 'Pequeno-almoço e manhã livre (piscinas, passeio pela marginal, compras).' },
+      { h: '12:00', txt: 'Check-out do hotel.' },
+      { h: '12:30', txt: 'Almoço leve no Funchal antes de seguir para o aeroporto (livre).' },
+      { h: '13:15', txt: 'Transfer do grupo 1 para o aeroporto (mini-bus).' },
+      { h: '15:15', txt: 'Voo de partida do grupo 1 (EJU6834).' },
+    ],
+    nota: 'A família do Jorge continua na Madeira até sexta 11/9 (voo EJU6840, 16:20). O transfer deles no dia 11 ainda está por combinar.',
     locais: [
       { nome: 'Aeroporto da Madeira (FNC)', placeId: PLACES.airport },
     ],
@@ -482,6 +578,51 @@ const tlEl = document.getElementById('timeline');
 programa.forEach((d, i) => {
   const li = document.createElement('li');
   li.className = 'tl-item' + (i === 0 ? ' tl-active' : '');
+
+  // Horário detalhado
+  const horarioHTML = d.horario && d.horario.length ? `
+    <ul class="tl-schedule">
+      ${d.horario.map(s => `
+        <li class="tl-sched-row">
+          <span class="tl-sched-h">${s.h}</span>
+          <span class="tl-sched-txt">${s.txt}</span>
+        </li>
+      `).join('')}
+    </ul>
+  ` : '';
+
+  // Trilho / caminhada
+  const trilhoHTML = d.trilho ? `
+    <div class="tl-trail">
+      <div class="tl-trail-head">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M13 4l3 16M8 7l-2 13M16 9l4 11M3 21h18"/>
+        </svg>
+        <span>Caminhada · ${d.trilho.nome}</span>
+      </div>
+      <p class="tl-trail-line"><strong>Tempo:</strong> ${d.trilho.tempo}</p>
+      <p class="tl-trail-line"><strong>Esforço:</strong> ${d.trilho.esforco}</p>
+    </div>
+  ` : '';
+
+  // Sugestões de almoço
+  const almocoHTML = d.almoco && d.almoco.length ? `
+    <div class="tl-lunch">
+      <p class="tl-lunch-title">Almoço · 2 sugestões</p>
+      ${d.almoco.map(r => `
+        <div class="tl-lunch-item">
+          <p class="tl-lunch-name">${r.nome}</p>
+          <p class="tl-lunch-desc">${r.desc}</p>
+        </div>
+      `).join('')}
+      <p class="tl-lunch-foot">O jantar é sempre no hotel (meia pensão).</p>
+    </div>
+  ` : '';
+
+  // Nota especial
+  const notaHTML = d.nota ? `<p class="tl-nota">${d.nota}</p>` : '';
+
+  // Mapas
   const locaisHTML = d.locais && d.locais.length ? `
     <ul class="tl-places">
       ${d.locais.map(l => `
@@ -497,10 +638,15 @@ programa.forEach((d, i) => {
       `).join('')}
     </ul>
   ` : '';
+
   li.innerHTML = `
     <p class="tl-day">${d.day}</p>
     <h4 class="tl-theme">${d.theme}</h4>
     <p class="tl-prog">${d.prog}</p>
+    ${horarioHTML}
+    ${trilhoHTML}
+    ${almocoHTML}
+    ${notaHTML}
     ${locaisHTML}
   `;
   tlEl.appendChild(li);
