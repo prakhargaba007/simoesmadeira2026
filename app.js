@@ -1063,10 +1063,10 @@ const reembolsosVoos = [
     familia: 'Alexandra', grupo: 1,
     nota: 'Adriano, Alexandra, Ana (4) e Aurora (bebé) · 1 mala dividida por 4',
     pessoas: [
-      { nome: 'Adriano',    voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
-      { nome: 'Alexandra',  voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
-      { nome: 'Ana (4)',    voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
-      { nome: 'Aurora (1)', voo: 62.00,  lugar: 0,     mala: 10.24, pago: false, obs: 'bebé · sem lugar próprio' },
+      { nome: 'Adriano',    voo: 161.88, lugar: 17.48, mala: 10.24, pago: true },
+      { nome: 'Alexandra',  voo: 161.88, lugar: 17.48, mala: 10.24, pago: true },
+      { nome: 'Ana (4)',    voo: 161.88, lugar: 17.48, mala: 10.24, pago: true },
+      { nome: 'Aurora (1)', voo: 62.00,  lugar: 0,     mala: 10.24, pago: true, obs: 'bebé · sem lugar próprio' },
     ],
   },
   {
