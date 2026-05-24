@@ -1110,10 +1110,10 @@ const reembolsosVoos = [
     familia: 'Patricia', grupo: 1,
     nota: 'Patrícia, Michael, Madalena (8) e Emília (6) · 1 mala dividida por 4',
     pessoas: [
-      { nome: 'Patrícia',     voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
-      { nome: 'Michael',      voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
-      { nome: 'Madalena (8)', voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
-      { nome: 'Emília (6)',   voo: 161.88, lugar: 17.48, mala: 10.24, pago: false },
+      { nome: 'Patrícia',     voo: 161.88, lugar: 17.48, mala: 10.24, pago: true },
+      { nome: 'Michael',      voo: 161.88, lugar: 17.48, mala: 10.24, pago: true },
+      { nome: 'Madalena (8)', voo: 161.88, lugar: 17.48, mala: 10.24, pago: true },
+      { nome: 'Emília (6)',   voo: 161.88, lugar: 17.48, mala: 10.24, pago: true },
     ],
   },
   {
@@ -1138,11 +1138,11 @@ const reembolsosVoos = [
     familia: 'Jorge', grupo: 2,
     nota: 'Família do Jorge · 6–11 set · 5 pessoas (2 quartos) · 1 mala dividida por 3',
     pessoas: [
-      { nome: 'Tiago (17)',   voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
-      { nome: 'Fátima',       voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
-      { nome: 'Jorge',        voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
-      { nome: 'Jorge Miguel', voo: 125.48, lugar: 17.48, mala: 0, pago: false, obs: 'filho do Jorge' },
-      { nome: 'Susete',       voo: 125.48, lugar: 17.48, mala: 0, pago: false },
+      { nome: 'Tiago (17)',   voo: 125.48, lugar: 17.48, mala: 13.99, pago: true },
+      { nome: 'Fátima',       voo: 125.48, lugar: 17.48, mala: 13.99, pago: true },
+      { nome: 'Jorge',        voo: 125.48, lugar: 17.48, mala: 13.99, pago: true },
+      { nome: 'Jorge Miguel', voo: 125.48, lugar: 17.48, mala: 0, pago: true, obs: 'filho do Jorge' },
+      { nome: 'Susete',       voo: 125.48, lugar: 17.48, mala: 0, pago: true },
     ],
   },
 ];
