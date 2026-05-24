@@ -1277,3 +1277,31 @@ if (payFamiliesEl) {
 if (!app.hidden) {
   openTabFromHash();
 }
+
+// =====================================================
+// Copiar dados de pagamento (MBWay / IBAN)
+// =====================================================
+document.querySelectorAll('.pay-method').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const texto = btn.dataset.copy;
+    const label = btn.querySelector('.pay-method-copy');
+    const original = label ? label.textContent : '';
+    try {
+      await navigator.clipboard.writeText(texto);
+      if (label) {
+        label.textContent = 'copiado ✓';
+        btn.classList.add('pay-method-done');
+        setTimeout(() => {
+          label.textContent = original;
+          btn.classList.remove('pay-method-done');
+        }, 1800);
+      }
+    } catch (e) {
+      // Fallback: seleção manual via prompt se o clipboard não estiver disponível
+      if (label) {
+        label.textContent = 'copia: ' + texto;
+        setTimeout(() => { label.textContent = original; }, 3000);
+      }
+    }
+  });
+});
