@@ -101,9 +101,9 @@ window.addEventListener('hashchange', openTabFromHash);
 // Custos individuais: Voo, Ecotax, Atrações, Refeições+bebidas
 //
 // Pessoas:
-//   - adulto: paga voo (€176.95), refeições+bebidas (€200), atrações (€39), ecotax (€10)
-//   - criança (4-12): paga voo (€176.95), refeições+bebidas (€100), atrações (€19.50), SEM ecotax
-//   - bebé (<2): paga voo (€62) e parte do quarto/carro; SEM ecotax, refeições, atrações
+//   - adulto: paga voo real do recibo, refeições+bebidas (€200), atrações (€53), ecotax (€10)
+//   - criança (4-12): paga voo real, refeições+bebidas (€100), atrações (€19), SEM ecotax
+//   - bebé (<2): paga voo (€62) + quota mala + parte do transporte; SEM ecotax, refeições, atrações
 
 const PRECO_REF_AD = 200;     // 5 dias × (30 almoço + 10 bebidas)
 const PRECO_REF_CR = 100;     // metade
@@ -136,12 +136,13 @@ const BUS_PP_JORGE = BUS_DIAS.reduce((s, d) => s + (d.todos ? d.valor / N_TODOS 
 
 const TOTAL_PESSOAS = 22;
 
-// Famílias: { name, hotel, voo, carro?, pessoas: [{nome, idade, categoria, voo}] }
-// Voo individual: cada pessoa paga o seu bilhete (bebé tem tarifa especial €62)
-// Voos easyjet (ida + volta)
-//   Porto → Funchal (EJU6863, 5/9): adulto €69.13, criança €69.13, bebé €31.00
-//   Funchal → Porto (EJU6834, 10/9): adulto €107.82, criança €107.82, bebé €31.00
-//   Total bilhetes: 18×€176.95 + 3×€176.95 + 1×€62 = €3.777,95
+// Famílias: { name, hotel, pessoas: [{nome, idade, cat, voo}] }
+// Voo individual: cada pessoa tem o seu valor REAL do recibo (voo + lugar + quota de mala).
+// Detalhe dos recibos easyJet:
+//   Grupo 1 (KCL63HT, 5/10 set): voo €161,88 + lugar €17,48 + mala (se aplicável)
+//   Grupo 2 (KCL63SQ, 6/11 set): voo €125,48 + lugar €17,48 + mala (se aplicável)
+//   Bebé Aurora: €62 (sem lugar) + quota de mala. Pedro: 0 (voa à parte).
+// Constantes mantidas só como referência (já não usadas no cálculo por pessoa):
 const VOO_ADULTO = 176.95;
 const VOO_CRIANCA = 176.95;
 const VOO_BEBE = 62.00;
@@ -150,86 +151,86 @@ const familias = [
   {
     name: 'Alexandra',
     quarto: 'Twin Family',
-    hotel: 1455,
+    hotel: 1467,
     pessoas: [
-      { nome: 'Adriano de Assis Pinheiro Martins', idade: 38, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Ana Alexandra Simões Fernandes', idade: 38, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Ana de Assis Fernandes Martins', idade: 4, cat: 'crianca', voo: VOO_CRIANCA },
-      { nome: 'Aurora de Assis Fernandes Martins', idade: 1, cat: 'bebe', voo: VOO_BEBE },
+      { nome: 'Adriano de Assis Pinheiro Martins', idade: 38, cat: 'adulto', voo: 189.6 },
+      { nome: 'Ana Alexandra Simões Fernandes', idade: 38, cat: 'adulto', voo: 189.6 },
+      { nome: 'Ana de Assis Fernandes Martins', idade: 4, cat: 'crianca', voo: 189.6 },
+      { nome: 'Aurora de Assis Fernandes Martins', idade: 1, cat: 'bebe', voo: 72.24 },
     ],
   },
   {
     name: 'Farrulo',
     quarto: 'Twin Classic Pool View',
-    hotel: 1372,
+    hotel: 1383,
     pessoas: [
-      { nome: 'Manuel Ribeiro Fernandes', idade: 59, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Maria da Conceição Ribeiro Simões', idade: 58, cat: 'adulto', voo: VOO_ADULTO },
+      { nome: 'Manuel Ribeiro Fernandes', idade: 59, cat: 'adulto', voo: 199.85 },
+      { nome: 'Maria da Conceição Ribeiro Simões', idade: 58, cat: 'adulto', voo: 199.85 },
     ],
   },
   {
     name: 'Pedro',
-    quarto: 'Twin Classic Pool View (single)',
-    hotel: 1170,
+    quarto: 'Twin Classic Vista Cidade',
+    hotel: 992,
     pessoas: [
-      { nome: 'Pedro Manuel Simões Fernandes', idade: 31, cat: 'adulto', voo: VOO_ADULTO },
+      { nome: 'Pedro Manuel Simões Fernandes', idade: 31, cat: 'adulto', voo: 0 },
     ],
   },
   {
     name: 'Patricia',
     quarto: 'Twin Family',
-    hotel: 1455,
+    hotel: 1467,
     pessoas: [
-      { nome: 'Patrícia Isabel Simões de Oliveira', idade: 37, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Michael Sapateiro Luís', idade: 41, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Madalena Gonçalves Luís', idade: 8, cat: 'crianca', voo: VOO_CRIANCA },
-      { nome: 'Emilia Gonçalves Luís', idade: 6, cat: 'crianca', voo: VOO_CRIANCA },
+      { nome: 'Patrícia Isabel Simões de Oliveira', idade: 37, cat: 'adulto', voo: 189.6 },
+      { nome: 'Michael Sapateiro Luís', idade: 41, cat: 'adulto', voo: 189.6 },
+      { nome: 'Madalena Gonçalves Luís', idade: 8, cat: 'crianca', voo: 189.6 },
+      { nome: 'Emilia Gonçalves Luís', idade: 6, cat: 'crianca', voo: 189.6 },
     ],
   },
   {
     name: 'Carmo',
     quarto: 'Twin Classic Pool View',
-    hotel: 1372,
+    hotel: 1383,
     pessoas: [
-      { nome: 'Manuel Pereira de Oliveira', idade: 67, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Maria do Carmo Ribeiro Simões', idade: 61, cat: 'adulto', voo: VOO_ADULTO },
+      { nome: 'Manuel Pereira de Oliveira', idade: 67, cat: 'adulto', voo: 199.85 },
+      { nome: 'Maria do Carmo Ribeiro Simões', idade: 61, cat: 'adulto', voo: 199.85 },
     ],
   },
   {
     name: 'Luís',
     quarto: 'Twin Classic Pool View',
-    hotel: 1372,
+    hotel: 1383,
     pessoas: [
-      { nome: 'Luís Manuel Simões Oliveira', idade: 33, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'João Pedro Simões Oliveira', idade: 22, cat: 'adulto', voo: VOO_ADULTO },
+      { nome: 'Luís Manuel Simões Oliveira', idade: 33, cat: 'adulto', voo: 179.36 },
+      { nome: 'João Pedro Simões Oliveira', idade: 22, cat: 'adulto', voo: 179.36 },
     ],
   },
   {
     name: 'Ana Maria',
     quarto: 'Twin Classic Pool View',
-    hotel: 1372,
+    hotel: 1383,
     pessoas: [
-      { nome: 'Filipe Daniel Fernandes Rodrigues', idade: 46, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Ana Maria Ribeiro Simões', idade: 60, cat: 'adulto', voo: VOO_ADULTO },
+      { nome: 'Filipe Daniel Fernandes Rodrigues', idade: 46, cat: 'adulto', voo: 199.85 },
+      { nome: 'Ana Maria Ribeiro Simões', idade: 60, cat: 'adulto', voo: 199.85 },
     ],
   },
   {
     name: 'Jorge',
     quarto: 'Twin Family (3 pess)',
-    hotel: 1790,
+    hotel: 1824,
     pessoas: [
-      { nome: 'Tiago Simões Silva', idade: 17, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Maria de Fátima Ribeiro Simões', idade: 48, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Jorge Manuel Ferreira da Silva', idade: 48, cat: 'adulto', voo: VOO_ADULTO },
+      { nome: 'Tiago Simões Silva', idade: 17, cat: 'adulto', voo: 156.95 },
+      { nome: 'Maria de Fátima Ribeiro Simões', idade: 48, cat: 'adulto', voo: 156.95 },
+      { nome: 'Jorge Manuel Ferreira da Silva', idade: 48, cat: 'adulto', voo: 156.95 },
     ],
   },
   {
     name: 'Jorginho',
-    quarto: 'Twin Classic Pool View',
-    hotel: 1372,
+    quarto: 'Twin Classic Vista Piscina',
+    hotel: 1383,
     pessoas: [
-      { nome: 'Jorge Miguel Simões da Silva', idade: 25, cat: 'adulto', voo: VOO_ADULTO },
-      { nome: 'Susete Daniela Silva Loureiro', idade: 25, cat: 'adulto', voo: VOO_ADULTO },
+      { nome: 'Jorge Miguel Simões da Silva', idade: 25, cat: 'adulto', voo: 142.96 },
+      { nome: 'Susete Daniela Silva Loureiro', idade: 25, cat: 'adulto', voo: 142.96 },
     ],
   },
 ];
@@ -824,35 +825,34 @@ const categorias = {
     when: 'ja',
     eyebrow: 'Pago já · Pestana Carlton',
     titulo: 'Hotel',
-    intro: 'Pestana Carlton Madeira, 5 noites (5–10 set), meia pensão para todos. Inclui pequeno-almoço e jantar buffet.',
+    intro: 'Pestana Carlton Madeira, 5 noites, meia pensão para todos. Grupo 1 de 5–10 set; família do Jorge de 6–11 set. Inclui pequeno-almoço e jantar buffet.',
     formula: '9 quartos · 5 noites · meia pensão',
     linhas: [
-      { txt: 'Twin Family (Alexandra) · 5 noites', val: 1455 },
-      { txt: 'Twin Family (Patricia) · 5 noites', val: 1455 },
-      { txt: 'Twin Family 3 pess (Jorge) · 5 noites', val: 1790 },
-      { txt: 'Twin Classic Pool View (Farrulo) · 5 noites', val: 1372 },
-      { txt: 'Twin Classic Pool View (Carmo) · 5 noites', val: 1372 },
-      { txt: 'Twin Classic Pool View (Luís) · 5 noites', val: 1372 },
-      { txt: 'Twin Classic Pool View (Ana Maria) · 5 noites', val: 1372 },
-      { txt: 'Twin Classic Pool View (Jorginho) · 5 noites', val: 1372 },
-      { txt: 'Twin Classic single (Pedro) · 5 noites', val: 1170 },
+      { txt: 'Twin Family (Alexandra) · 5 noites', val: 1467 },
+      { txt: 'Twin Family (Patricia) · 5 noites', val: 1467 },
+      { txt: 'Twin Family 3 pess (Jorge) · 5 noites', val: 1824 },
+      { txt: 'Twin Classic Vista Piscina (Farrulo) · 5 noites', val: 1383 },
+      { txt: 'Twin Classic Vista Piscina (Carmo) · 5 noites', val: 1383 },
+      { txt: 'Twin Classic Vista Piscina (Luís) · 5 noites', val: 1383 },
+      { txt: 'Twin Classic Vista Piscina (Ana Maria) · 5 noites', val: 1383 },
+      { txt: 'Twin Classic Vista Piscina (Jorginho) · 5 noites', val: 1383 },
+      { txt: 'Twin Classic Vista Cidade (Pedro) · 5 noites', val: 992 },
     ],
-    nota: 'Tarifa Pestana com promo aplicado. As bebidas ao jantar não estão incluídas (estimadas em €10/adulto/dia, contadas em "Almoços + bebidas").',
+    nota: 'Tarifa Pestana com promo e ecotax incluídos nos recibos. As bebidas ao jantar não estão incluídas (estimadas em €10/adulto/dia, contadas em "Almoços + bebidas").',
   },
   voos: {
-    lbl: 'Voos easyJet · 22 bilhetes',
+    lbl: 'Voos easyJet',
     val: totaisGlobais.voo,
     when: 'ja',
     eyebrow: 'Pago já · easyJet',
     titulo: 'Voos easyJet',
-    intro: 'Ida (Porto → Funchal, EJU6863, 5/9) e volta (Funchal → Porto, EJU6834, 10/9). Tarifa Light com mala de cabine pequena incluída.',
-    formula: '18 adultos × €176,95 + 3 crianças × €176,95 + 1 bebé × €62,00',
+    intro: 'Grupo 1 (KCL63HT): Porto↔Funchal, 5 e 10 set. Grupo 2 / família Jorge (KCL63SQ): 6 e 11 set. Tarifa Light com lugares e malas. O Pedro voa à parte (não incluído).',
+    formula: 'Soma dos 2 recibos easyJet (voos + lugares + malas)',
     linhas: [
-      { txt: 'Adulto · 18 bilhetes · €176,95', val: 18 * 176.95 },
-      { txt: 'Criança · 3 bilhetes · €176,95', val: 3 * 176.95 },
-      { txt: 'Bebé (Aurora) · 1 bilhete · €62,00', val: 62.00 },
+      { txt: 'Grupo 1 · 16 pessoas · KCL63HT', val: 2957.30 },
+      { txt: 'Grupo 2 · 5 pessoas · KCL63SQ', val: 756.78 },
     ],
-    nota: 'Cesto easyJet. Cada bilhete = ida (€69,13) + volta (€107,82) para adultos e crianças. Bebé tem tarifa especial €31 + €31.',
+    nota: 'Inclui voos, lugares selecionados (€8,99 ida + €8,49 volta) e malas de porão. O detalhe por pessoa está na tab Pagamentos.',
   },
   minibus: {
     lbl: 'Mini-bus · autocarro privado',
