@@ -2253,7 +2253,8 @@ body {
 /* Família expansível (cabeçalho como botão) */
 .pay-fam-head {
   width: 100%;
-  display: flex;
+  display: flex !important;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 0.875rem;
@@ -2264,6 +2265,14 @@ body {
   text-align: left;
   -webkit-tap-highlight-color: transparent;
   font-family: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.pay-fam-head .pay-fam-info {
+  text-align: left;
+}
+.pay-fam-head .pay-fam-amt {
+  text-align: right;
 }
 .pay-fam-chevron {
   display: inline-block;

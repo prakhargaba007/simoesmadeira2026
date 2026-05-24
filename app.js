@@ -1120,18 +1120,12 @@ const reembolsosVoos = [
   },
   {
     familia: 'Jorge', grupo: 2,
-    nota: 'Tiago (17), Fátima e Jorge · 6–11 set · 1 mala dividida por 3',
+    nota: 'Família do Jorge · 6–11 set · 5 pessoas (2 quartos) · 1 mala dividida por 3',
     pessoas: [
-      { nome: 'Tiago (17)', voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
-      { nome: 'Fátima',     voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
-      { nome: 'Jorge',      voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
-    ],
-  },
-  {
-    familia: 'Jorginho', grupo: 2,
-    nota: 'Jorge Miguel e Susete (filho do Jorge) · 6–11 set · sem mala',
-    pessoas: [
-      { nome: 'Jorge Miguel', voo: 125.48, lugar: 17.48, mala: 0, pago: false },
+      { nome: 'Tiago (17)',   voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
+      { nome: 'Fátima',       voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
+      { nome: 'Jorge',        voo: 125.48, lugar: 17.48, mala: 13.99, pago: false },
+      { nome: 'Jorge Miguel', voo: 125.48, lugar: 17.48, mala: 0, pago: false, obs: 'filho do Jorge' },
       { nome: 'Susete',       voo: 125.48, lugar: 17.48, mala: 0, pago: false },
     ],
   },
