@@ -2030,14 +2030,11 @@ body {
 }
 .pay-fam {
   display: flex;
-  align-items: center;
-  gap: 0.875rem;
-  padding: 1rem 1.25rem;
+  flex-direction: column;
   background: var(--sand);
   border: 1px solid var(--sand-warm);
   border-radius: var(--radius-sm);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
   transition: background 0.15s, border-color 0.15s;
 }
 .pay-fam:hover {
@@ -2251,4 +2248,93 @@ body {
   color: rgba(245, 239, 228, 0.6);
   margin: 0.875rem 0 0;
   font-style: italic;
+}
+
+/* Família expansível (cabeçalho como botão) */
+.pay-fam-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.875rem;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+}
+.pay-fam-chevron {
+  display: inline-block;
+  margin-left: 0.5rem;
+  font-size: 16px;
+  color: var(--ink-mute);
+  transition: transform 0.2s;
+}
+.pay-fam-open .pay-fam-chevron {
+  transform: rotate(180deg);
+}
+.pay-fam-parcial {
+  background: #fdf3e6;
+  border-color: #f1d9a8;
+}
+.pay-fam-parcial .pay-fam-status { color: #b5751a; }
+
+/* Lista de pessoas dentro da família */
+.pay-pessoas {
+  list-style: none;
+  margin: 0;
+  padding: 0 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.pay-pessoa {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0;
+  border-top: 1px solid var(--sand-warm);
+}
+.pay-pessoa-check {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--ink-mute);
+  font-weight: 700;
+}
+.pay-pessoa-paga .pay-pessoa-check {
+  color: var(--green-deep);
+}
+.pay-pessoa-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.pay-pessoa-nome {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.pay-pessoa-paga .pay-pessoa-nome {
+  color: var(--green-deep);
+}
+.pay-pessoa-detail {
+  font-size: 11px;
+  color: var(--ink-mute);
+  font-style: italic;
+  margin-top: 1px;
+}
+.pay-pessoa-val {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--green-deep);
+  flex-shrink: 0;
 }
