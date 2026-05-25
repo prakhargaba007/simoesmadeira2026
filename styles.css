@@ -2541,3 +2541,16 @@ body {
 .tl-lunch-link:hover span {
   border-bottom-color: currentColor;
 }
+
+/* Link "Ver trilho" dentro do bloco de caminhada */
+.tl-trail-link {
+  display: inline-block;
+  margin-top: 0.625rem;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green-deep);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+.tl-trail-link:hover { opacity: 0.7; }

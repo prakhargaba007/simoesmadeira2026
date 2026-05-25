@@ -453,6 +453,7 @@ const programa = [
       nome: 'Ponta de São Lourenço (PR8)',
       tempo: 'Versão curta ~45 min (ida e volta ao 1º miradouro); trilho completo ~3h (8 km)',
       esforco: 'Moderado · sobe e desce, exposto ao sol e vento, sem sombra. Com crianças pequenas e bebé, fazer só o início até ao primeiro miradouro (fácil e plano).',
+      link: 'https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-8-vereda-da-ponta-de-sao-lourenco/',
     },
     almoco: [
       { nome: 'Mercado Velho (Machico)', desc: 'Esplanada ampla junto ao ribeiro, a caminho da Ponta. Cozinha madeirense, espaço para grupos.', grupo: 'Bom para grupos · reservar', maps: 'Mercado Velho Machico Madeira' },
@@ -477,9 +478,10 @@ const programa = [
       { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
     ],
     trilho: {
-      nome: 'Pico das Pedras → Queimadas (acesso à Levada do Caldeirão Verde)',
-      tempo: 'Pico das Pedras às Queimadas ~30-40 min a pé (plano); Caldeirão Verde completo ~5-6h ida e volta',
-      esforco: 'O troço até às Queimadas é fácil e plano. A Levada do Caldeirão Verde completa é longa e tem túneis — não recomendada com o bebé e crianças pequenas. Sugestão: ficar pela zona das Queimadas (relvado, casas de colmo) e fazer só um bocadinho da levada.',
+      nome: 'Um Caminho para Todos (PR9.1) · Pico das Pedras → Queimadas',
+      tempo: '~2,1 km · ~45 min só de ida (~1h30 ida e volta com paragens)',
+      esforco: 'Fácil · caminho largo, plano e protegido (vai dos 870 aos 890 m), pensado para ser acessível a todas as idades — ideal com bebé ao colo e crianças. Termina nas Queimadas, com a Casa das Tradições (casa típica de colmo). Quem quiser muito mais pode seguir para o Caldeirão Verde, mas é longo (5-6h, com túneis) e não recomendado com crianças pequenas.',
+      link: 'https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-91-levada-do-caldeirao-verde-um-caminho-para-todos/',
     },
     almoco: [
       { nome: 'Quinta do Furão', desc: 'Vista de mar deslumbrante, duas salas grandes e terraço para grupos. Cozinha regional cuidada. Email de reservas próprio (~€25/pessoa).', grupo: 'Ideal para grupos · reservar por email', maps: 'Quinta do Furão Santana Madeira' },
@@ -529,7 +531,8 @@ const programa = [
     trilho: {
       nome: 'Fanal (passeio livre na floresta)',
       tempo: '~30-60 min de passeio livre, ao ritmo do grupo',
-      esforco: 'Fácil · terreno plano e largo, ideal para todas as idades. Pode estar húmido/enevoado — levar calçado fechado. O autocarro acede pela ER209.',
+      esforco: 'Fácil · terreno plano e largo, ideal para todas as idades. Pode estar húmido/enevoado — levar calçado fechado.',
+      link: 'https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-13-vereda-do-fanal/',
     },
     almoco: [
       { nome: 'Cachalote (Porto Moniz)', desc: 'Sobre as rochas junto às piscinas naturais, 650 lugares e serviço de grupos/banquetes. Arroz de lapas premiado. Perfeito para 22.', grupo: 'Excelente para grupos · reservar', maps: 'Restaurante Cachalote Porto Moniz' },
@@ -632,6 +635,7 @@ programa.forEach((d, i) => {
       </div>
       <p class="tl-trail-line"><strong>Tempo:</strong> ${d.trilho.tempo}</p>
       <p class="tl-trail-line"><strong>Esforço:</strong> ${d.trilho.esforco}</p>
+      ${d.trilho.link ? `<a href="${d.trilho.link}" target="_blank" rel="noopener" class="tl-trail-link">Ver trilho e mapa →</a>` : ''}
     </div>
   ` : '';
 
