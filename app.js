@@ -1263,6 +1263,27 @@ const reservasVoos = [
   },
 ];
 
+// Reservas do hotel (Pestana Carlton Madeira) — confirmadas, pagamento no alojamento.
+// Valores com taxas incluídas (IVA + taxa local). Meia pensão; bebidas ao jantar NÃO incluídas.
+const reservasHotel = [
+  {
+    ref: '26050582202',
+    titulo: 'Pestana Carlton · Grupo 1',
+    detalhe: '7 quartos · 5–10 set · meia pensão · IVA e taxa local incluídos',
+    valor: 9588.20,
+    metodo: 'Pagamento no hotel · confirmada 04/05/2026',
+    doc: 'docs/hotel-reserva1-26050582202.pdf',
+  },
+  {
+    ref: '26050582317',
+    titulo: 'Pestana Carlton · Grupo 2',
+    detalhe: '2 quartos · 6–11 set · meia pensão · IVA e taxa local incluídos',
+    valor: 3257.20,
+    metodo: 'Pagamento no hotel · confirmada 04/05/2026',
+    doc: 'docs/hotel-reserva2-26050582317.pdf',
+  },
+];
+
 // Reembolso por família e por pessoa (só voos).
 // Cada pessoa: { nome, voo, lugar, mala, pago }
 //   - voo:   tarifa do bilhete (ida+volta)
@@ -1370,6 +1391,32 @@ if (payBookingsEl) {
 
   const totalVoos = reservasVoos.reduce((s, r) => s + r.valor, 0);
   document.getElementById('payTotalAdiantado').textContent = eur(totalVoos);
+}
+
+// --- Render reservas do hotel (documentos) ---
+const hotelBookingsEl = document.getElementById('hotelBookings');
+if (hotelBookingsEl) {
+  hotelBookingsEl.innerHTML = reservasHotel.map(r => `
+    <li class="pay-booking">
+      <div class="pay-booking-info">
+        <p class="pay-booking-title">${r.titulo}</p>
+        <p class="pay-booking-detail">${r.detalhe}</p>
+        <p class="pay-booking-method">Reserva ${r.ref} · ${r.metodo}</p>
+        ${r.doc ? `<a href="${r.doc}" target="_blank" rel="noopener" class="pay-doc-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6M9 13h6M9 17h6"/>
+          </svg>
+          <span>Ver reserva</span>
+        </a>` : ''}
+      </div>
+      <p class="pay-booking-val">${eur(r.valor)}</p>
+    </li>
+  `).join('');
+
+  const totalHotel = reservasHotel.reduce((s, r) => s + r.valor, 0);
+  const elHotelTotal = document.getElementById('payTotalHotel');
+  if (elHotelTotal) elHotelTotal.textContent = eur(totalHotel);
 }
 
 // --- Render reembolsos por família (com detalhe por pessoa) ---
