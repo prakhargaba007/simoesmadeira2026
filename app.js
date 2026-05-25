@@ -116,19 +116,19 @@ const PRECO_BARCO_CR = 20;      // crianças ~metade
 const PRECO_BARCO_BB = 0;       // bebé ao colo, grátis
 const PRECO_ECO = 10;          // €2/noite × 5 noites
 
-// ===== MINI-BUS (Planeta Azul, autocarro 31 lugares) =====
+// ===== MINI-BUS (Planeta Azul: autocarro 31 lugares nos passeios, minibus 20 nos transfers) =====
 // Preços por dia COM IVA (4%). Cada dia é dividido só por quem está cá nesse dia.
 // Grupo 1 (17 pax: 16 easyJet + Pedro) usa os 6 dias.
 // Família Jorge (5 pax) chega dia 6 e parte dia 11 → usa só dias 6,7,8,9.
 const BUS_DIAS = [
-  { data: '05/09', desc: 'Mercado · Teleférico · Monte', valor: 329.18 * 1.04, todos: false }, // só grupo 1
-  { data: '06/09', desc: 'Caniçal · Ponta de São Lourenço', valor: 356.35 * 1.04, todos: true },
-  { data: '07/09', desc: 'Santana · Caldeirão Verde · Ribeiro Frio', valor: 378.29 * 1.04, todos: true },
+  { data: '05/09', desc: 'Transfer de chegada (aeroporto → hotel)', valor: 101.30 * 1.04, todos: false }, // só grupo 1, minibus 20 lugares
+  { data: '06/09', desc: 'Aeroporto · Marina · Ponta de São Lourenço', valor: 389.26 * 1.04, todos: true },
+  { data: '07/09', desc: 'Santana · Pico das Pedras · Ribeiro Frio', valor: 378.29 * 1.04, todos: true },
   { data: '08/09', desc: 'Cabo Girão · Câmara de Lobos · Calheta', valor: 378.29 * 1.04, todos: true },
   { data: '09/09', desc: 'Paúl da Serra · Fanal · Porto Moniz', valor: 378.29 * 1.04, todos: true },
-  { data: '10/09', desc: 'Transfer de partida', valor: 172.95 * 1.04, todos: false }, // só grupo 1
+  { data: '10/09', desc: 'Transfer de partida (hotel → aeroporto)', valor: 101.30 * 1.04, todos: false }, // só grupo 1, minibus 20 lugares
 ];
-const BUS_TOTAL = BUS_DIAS.reduce((s, d) => s + d.valor, 0);  // €2073.08
+const BUS_TOTAL = BUS_DIAS.reduce((s, d) => s + d.valor, 0);  // €1795.80
 const N_GRUPO1 = 17;   // pessoas presentes nos dias "só grupo 1" (16 easyJet + Pedro)
 const N_TODOS = 22;    // pessoas presentes nos dias "todos"
 
@@ -1068,17 +1068,17 @@ const categorias = {
     when: 'ja',
     eyebrow: 'Pago já · Transporte',
     titulo: 'Mini-bus (Planeta Azul)',
-    intro: 'Autocarro privado de 31 lugares com motorista, para todo o grupo. Inclui motorista, combustível e estacionamentos. Cada dia é dividido só por quem está cá nesse dia: a família do Jorge chega no dia 6, por isso não paga o passeio do dia 5 nem o transfer de partida do dia 10.',
+    intro: 'Autocarro privado de 31 lugares com motorista nos dias de passeio (e minibus de 20 lugares nos transfers de chegada/partida). Inclui motorista, combustível e estacionamentos. Cada dia é dividido só por quem está cá nesse dia: a família do Jorge chega no dia 6, por isso não paga o transfer do dia 5 nem o de partida do dia 10.',
     formula: 'Soma dos 6 dias de serviço (com IVA 4%), repartida por dia',
     linhas: [
-      { txt: '5/9 · Mercado, Teleférico, Monte', val: 329.18 * 1.04, sub: '÷ 17 (Jorge ainda não chegou)' },
-      { txt: '6/9 · Caniçal, Ponta de São Lourenço', val: 356.35 * 1.04, sub: '÷ 22' },
-      { txt: '7/9 · Santana, Caldeirão Verde, Ribeiro Frio', val: 378.29 * 1.04, sub: '÷ 22' },
+      { txt: '5/9 · Transfer de chegada (aeroporto → hotel)', val: 101.30 * 1.04, sub: '÷ 17 · minibus 20 lugares (Jorge ainda não chegou)' },
+      { txt: '6/9 · Aeroporto, Marina, Ponta de São Lourenço', val: 389.26 * 1.04, sub: '÷ 22' },
+      { txt: '7/9 · Santana, Pico das Pedras, Ribeiro Frio', val: 378.29 * 1.04, sub: '÷ 22' },
       { txt: '8/9 · Cabo Girão, Câmara de Lobos, Calheta', val: 378.29 * 1.04, sub: '÷ 22' },
       { txt: '9/9 · Paúl da Serra, Fanal, Porto Moniz', val: 378.29 * 1.04, sub: '÷ 22' },
-      { txt: '10/9 · Transfer de partida', val: 172.95 * 1.04, sub: '÷ 17 (só quem parte neste dia)' },
+      { txt: '10/9 · Transfer de partida (hotel → aeroporto)', val: 101.30 * 1.04, sub: '÷ 17 · minibus 20 lugares (só quem parte)' },
     ],
-    nota: 'Grupo 1 (17 pessoas, usa os 6 dias): ~€101 por pessoa. Família do Jorge (5 pessoas, só dias 6 a 9): ~€70 por pessoa. Acesso a Queimadas não é possível de autocarro — o grupo fica no Pico das Pedras. A ida da família do Jorge ao aeroporto no dia 11 é por conta deles.',
+    nota: 'Grupo 1 (17 pessoas, usa os 6 dias): ~€84 por pessoa. Família do Jorge (5 pessoas, só dias 6 a 9): ~€72 por pessoa. Acesso às Queimadas não é possível de autocarro — o grupo fica no Pico das Pedras. A ida da família do Jorge ao aeroporto no dia 11 é por conta deles (táxi).',
   },
   ecotax: {
     lbl: 'Ecotax',
