@@ -2517,3 +2517,27 @@ body {
 }
 .tl-boat .tl-trail-head { color: #1a5a7a; }
 .tl-boat .tl-trail-line strong { color: #1a5a7a; }
+
+/* Nome do restaurante como link de mapa */
+.tl-lunch-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: var(--ink);
+  transition: color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tl-lunch-link:hover { color: var(--green-deep); }
+.tl-lunch-link svg {
+  width: 14px;
+  height: 14px;
+  color: var(--terracotta, #b5713f);
+  flex-shrink: 0;
+}
+.tl-lunch-link span {
+  border-bottom: 1px solid transparent;
+}
+.tl-lunch-link:hover span {
+  border-bottom-color: currentColor;
+}

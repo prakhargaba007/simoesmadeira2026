@@ -419,8 +419,8 @@ const programa = [
     },
     nota: 'Dia mais leve de propósito: o grupo chega cansado do voo das 06:25 e falta a família do Jorge. O leste fica perto do aeroporto e poupa-se a experiência do barco e dos Carros de Cesto para quando estiverem os 22.',
     almoco: [
-      { nome: 'Mercado Velho (Machico)', desc: 'Esplanada ampla junto ao ribeiro, a caminho da Ponta. Cozinha madeirense, espaço para grupos.', grupo: 'Bom para grupos · reservar' },
-      { nome: 'O Recanto (Caniçal)', desc: 'Gem local perto da Ponta de São Lourenço, buffet de almoço a bom preço. Espaço limitado — confirmar mesa para 17 ao reservar.', grupo: 'Pequeno · confirmar lugares' },
+      { nome: 'Mercado Velho (Machico)', desc: 'Esplanada ampla junto ao ribeiro, a caminho da Ponta. Cozinha madeirense, espaço para grupos.', grupo: 'Bom para grupos · reservar', maps: 'Mercado Velho Machico Madeira' },
+      { nome: 'O Recanto (Caniçal)', desc: 'Gem local perto da Ponta de São Lourenço, buffet de almoço a bom preço. Espaço limitado — confirmar mesa para 17 ao reservar.', grupo: 'Pequeno · confirmar lugares', maps: 'Restaurante O Recanto Caniçal Madeira' },
     ],
     locais: [
       { nome: 'Ponta de São Lourenço', placeId: PLACES.pontaSL },
@@ -448,8 +448,8 @@ const programa = [
       nota: 'Setembro é época alta (mar calmo, boas hipóteses de avistamento). Para 22 pessoas, escolher um catamarã grande e estável e reservar com dias de antecedência. Com a bebé e as crianças pequenas, levar protetor solar, água e chapéu; os avistamentos não são garantidos (são animais selvagens).',
     },
     almoco: [
-      { nome: 'Gavião Novo (centro histórico)', desc: 'Casa de peixe e marisco na Rua de Santa Maria, perto da marina, com salas amplas. Aceita reserva — pedir mesa para 22.', grupo: 'Bom para grupos · reservar' },
-      { nome: 'Restaurante do Forte / Cervejaria Beerhouse', desc: 'Na marina, espaço grande e esplanada sobre o mar, prático após o barco. Boa opção para grupos.', grupo: 'Bom para grupos · reservar' },
+      { nome: 'Gavião Novo (centro histórico)', desc: 'Casa de peixe e marisco na Rua de Santa Maria, perto da marina, com salas amplas. Aceita reserva — pedir mesa para 22.', grupo: 'Bom para grupos · reservar', maps: 'Restaurante Gavião Novo Funchal' },
+      { nome: 'Restaurante do Forte / Cervejaria Beerhouse', desc: 'Na marina, espaço grande e esplanada sobre o mar, prático após o barco. Boa opção para grupos.', grupo: 'Bom para grupos · reservar', maps: 'Beerhouse Funchal Marina' },
     ],
     locais: [
       { nome: 'Marina do Funchal', placeId: PLACES.mercado },
@@ -477,8 +477,8 @@ const programa = [
       esforco: 'O troço até às Queimadas é fácil e plano. A Levada do Caldeirão Verde completa é longa e tem túneis — não recomendada com o bebé e crianças pequenas. Sugestão: ficar pela zona das Queimadas (relvado, casas de colmo) e fazer só um bocadinho da levada.',
     },
     almoco: [
-      { nome: 'Quinta do Furão', desc: 'Vista de mar deslumbrante, duas salas grandes e terraço para grupos. Cozinha regional cuidada. Email de reservas próprio (~€25/pessoa).', grupo: 'Ideal para grupos · reservar por email' },
-      { nome: 'Adega do Compadre (Santana)', desc: 'Gem local na rua principal, comida caseira, preços ótimos. Mais pequeno — confirmar mesa para 22 ao reservar.', grupo: 'Pequeno · confirmar 22 lugares' },
+      { nome: 'Quinta do Furão', desc: 'Vista de mar deslumbrante, duas salas grandes e terraço para grupos. Cozinha regional cuidada. Email de reservas próprio (~€25/pessoa).', grupo: 'Ideal para grupos · reservar por email', maps: 'Quinta do Furão Santana Madeira' },
+      { nome: 'Adega do Compadre (Santana)', desc: 'Gem local na rua principal, comida caseira, preços ótimos. Mais pequeno — confirmar mesa para 22 ao reservar.', grupo: 'Pequeno · confirmar 22 lugares', maps: 'Adega do Compadre Santana Madeira' },
     ],
     locais: [
       { nome: 'Casas Típicas de Santana', placeId: PLACES.santana },
@@ -500,8 +500,8 @@ const programa = [
       { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
     ],
     almoco: [
-      { nome: 'O Lagar (Câmara de Lobos)', desc: 'Espetada em pau de louro num espaço enorme: salas de 80 a 350 lugares, vocacionado para grupos e eventos. A aposta mais segura para 22.', grupo: 'Excelente para grupos · reservar' },
-      { nome: 'Vila da Carne (Câmara de Lobos)', desc: 'Espetada de qualidade com vista para a baía, restaurante amplo e moderno. Aceita reserva no TheFork.', grupo: 'Bom para grupos · reservar' },
+      { nome: 'O Lagar (Câmara de Lobos)', desc: 'Espetada em pau de louro num espaço enorme: salas de 80 a 350 lugares, vocacionado para grupos e eventos. A aposta mais segura para 22.', grupo: 'Excelente para grupos · reservar', maps: 'Restaurante O Lagar Câmara de Lobos' },
+      { nome: 'Vila da Carne (Câmara de Lobos)', desc: 'Espetada de qualidade com vista para a baía, restaurante amplo e moderno. Aceita reserva no TheFork.', grupo: 'Bom para grupos · reservar', maps: 'Vila da Carne Câmara de Lobos' },
     ],
     locais: [
       { nome: 'Cabo Girão', placeId: PLACES.caboGirao },
@@ -527,8 +527,8 @@ const programa = [
       esforco: 'Fácil · terreno plano e largo, ideal para todas as idades. Pode estar húmido/enevoado — levar calçado fechado. O autocarro acede pela ER209.',
     },
     almoco: [
-      { nome: 'Cachalote (Porto Moniz)', desc: 'Sobre as rochas junto às piscinas naturais, 650 lugares e serviço de grupos/banquetes. Arroz de lapas premiado. Perfeito para 22.', grupo: 'Excelente para grupos · reservar' },
-      { nome: 'Orca (Porto Moniz)', desc: 'Junto às piscinas, prático, boa relação qualidade-preço. Espetada e peixe do dia. Reservar para grupo.', grupo: 'Bom para grupos · reservar' },
+      { nome: 'Cachalote (Porto Moniz)', desc: 'Sobre as rochas junto às piscinas naturais, 650 lugares e serviço de grupos/banquetes. Arroz de lapas premiado. Perfeito para 22.', grupo: 'Excelente para grupos · reservar', maps: 'Restaurante Cachalote Porto Moniz' },
+      { nome: 'Orca (Porto Moniz)', desc: 'Junto às piscinas, prático, boa relação qualidade-preço. Espetada e peixe do dia. Reservar para grupo.', grupo: 'Bom para grupos · reservar', maps: 'Restaurante Orca Porto Moniz' },
     ],
     locais: [
       { nome: 'Paúl da Serra', placeId: PLACES.paulSerra },
@@ -649,7 +649,15 @@ programa.forEach((d, i) => {
       <p class="tl-lunch-title">Almoço · 2 sugestões</p>
       ${d.almoco.map(r => `
         <div class="tl-lunch-item">
-          <p class="tl-lunch-name">${r.nome}</p>
+          ${r.maps
+            ? `<a href="${mapLink(r.maps)}" target="_blank" rel="noopener" class="tl-lunch-name tl-lunch-link">
+                 <span>${r.nome}</span>
+                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                   <circle cx="12" cy="10" r="3"/>
+                 </svg>
+               </a>`
+            : `<p class="tl-lunch-name">${r.nome}</p>`}
           ${r.grupo ? `<span class="tl-lunch-cap">${r.grupo}</span>` : ''}
           <p class="tl-lunch-desc">${r.desc}</p>
         </div>
