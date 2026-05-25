@@ -369,31 +369,37 @@ const nomesCurtos = {
 const nomeCurto = (n) => nomesCurtos[n] || n.split(' ')[0];
 
 // =====================================================
-// MAPS — Google Place IDs e função de link
+// MAPS — pesquisa por nome (fiável) e função de link
 // =====================================================
 const PLACES = {
-  hotel:           'ChIJV-mjUfpfYAwR_jyTGIg4UOM',  // Pestana Carlton Madeira
-  airport:         'ChIJ6xlRBVRiYAwR7cmGjBb7wVY',  // Madeira Airport (FNC)
-  mercado:         'ChIJz3kecQ9gYAwRYw5WU4wAWY0',  // Mercado dos Lavradores
-  teleferico:      'ChIJyZwZXmlgYAwReSH_1TMs3Kg',  // Funchal-Monte Cable Car
-  cestos:          'ChIJix83BM5hYAwRK2erdp2J_A8',  // Carreiros do Monte
-  museuBaleia:     'ChIJU4NDrERjYAwRTDmx8rvxSDM',  // Museu da Baleia
-  pontaSL:         'ChIJBYiJk6J8YAwRFuEWPLkGqKA',  // Ponta de São Lourenço
-  santana:         'ChIJn1Stk7dnYAwR6Owt36PGuk8',  // Casas Típicas de Santana
-  queimadas:       'ChIJjVfns45nYAwR5kNtrEQ22RQ',  // Parque Florestal das Queimadas
-  ribeiroFrio:     'ChIJO2yVRTZnYAwRZBzCdjL0aNA',  // Posto Aquícola do Ribeiro Frio
-  caboGirao:       'ChIJM4MGcC1fYAwRpDwTa-2e1Ak',  // Cabo Girão
-  camaraLobos:     'ChIJyR0p1JleYAwR0D-Q5L3rAAQ',  // Câmara de Lobos
-  portoMoniz:      'ChIJJw94bTZJYAwRfPk3g8xkNWU',  // Porto Moniz piscinas naturais
-  calheta:         'Praia+da+Calheta+Madeira',     // pesquisa por nome
-  paulSerra:       'Paul+da+Serra+Madeira',        // pesquisa por nome
-  fanal:           'Fanal+Madeira',                // pesquisa por nome
+  hotel:           'Pestana Carlton Madeira Funchal',
+  airport:         'Aeroporto da Madeira FNC',
+  mercado:         'Mercado dos Lavradores Funchal',
+  teleferico:      'Teleférico do Funchal Monte',
+  cestos:          'Carreiros do Monte Funchal',
+  museuBaleia:     'Museu da Baleia Caniçal',
+  pontaSL:         'Ponta de São Lourenço Madeira',
+  santana:         'Casas Típicas de Santana Madeira',
+  queimadas:       'Parque das Queimadas Santana',
+  ribeiroFrio:     'Ribeiro Frio Madeira',
+  caboGirao:       'Cabo Girão Skywalk Madeira',
+  camaraLobos:     'Câmara de Lobos Madeira',
+  portoMoniz:      'Piscinas Naturais Porto Moniz',
+  calheta:         'Praia da Calheta Madeira',
+  paulSerra:       'Paúl da Serra Madeira',
+  fanal:           'Fanal Madeira',
 };
 
 // Place ID começa com "ChIJ"; caso contrário tratamos como pesquisa por texto
-const mapLink = (placeId) => placeId && placeId.startsWith('ChIJ')
-  ? `https://www.google.com/maps/place/?q=place_id:${placeId}`
-  : `https://www.google.com/maps/search/?api=1&query=${placeId}`;
+const mapLink = (placeId) => {
+  if (!placeId) return 'https://www.google.com/maps';
+  // Place ID do Google (começa por ChIJ): usa o formato de place_id
+  if (placeId.startsWith('ChIJ')) {
+    return `https://www.google.com/maps/place/?q=place_id:${placeId}`;
+  }
+  // Caso contrário, é uma pesquisa por texto — tem de ser codificada
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(placeId)}`;
+};
 
 // =====================================================
 // PROGRAMA
