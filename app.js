@@ -122,8 +122,8 @@ const PRECO_ECO = 10;          // €2/noite × 5 noites
 // Família Jorge (5 pax) chega dia 6 e parte dia 11 → usa só dias 6,7,8,9.
 const BUS_DIAS = [
   { data: '05/09', desc: 'Transfer de chegada (aeroporto → hotel)', valor: 101.30 * 1.04, todos: false }, // só grupo 1, minibus 20 lugares
-  { data: '06/09', desc: 'Aeroporto · Marina · Ponta de São Lourenço', valor: 389.26 * 1.04, todos: true },
-  { data: '07/09', desc: 'Santana · Pico das Pedras · Ribeiro Frio', valor: 378.29 * 1.04, todos: true },
+  { data: '06/09', desc: 'Aeroporto · Santana · Pico das Pedras · Ribeiro Frio', valor: 389.26 * 1.04, todos: true },
+  { data: '07/09', desc: 'Marina do Funchal · Ponta de São Lourenço', valor: 378.29 * 1.04, todos: true },
   { data: '08/09', desc: 'Cabo Girão · Câmara de Lobos · Calheta', valor: 378.29 * 1.04, todos: true },
   { data: '09/09', desc: 'Paúl da Serra · Fanal · Porto Moniz', valor: 378.29 * 1.04, todos: true },
   { data: '10/09', desc: 'Transfer de partida (hotel → aeroporto)', valor: 101.30 * 1.04, todos: false }, // só grupo 1, minibus 20 lugares
@@ -433,11 +433,41 @@ const programa = [
   },
   {
     day: 'Dom 6/9',
-    theme: 'Mar & Leste',
-    prog: 'Primeiro dia com o grupo completo. Apanhamos a família do Jorge no aeroporto, fazemos o passeio de barco para ver golfinhos e baleias de manhã, e à tarde seguimos para os miradouros da Ponta de São Lourenço, no extremo leste.',
+    theme: 'Norte · Santana',
+    prog: 'Primeiro dia com o grupo completo. Apanhamos a família do Jorge no aeroporto a caminho do norte e seguimos para Santana — casas típicas, um passeio acessível pela zona das Queimadas/Pico das Pedras e o posto florestal do Ribeiro Frio. Um dia mais tranquilo, ideal para quem acabou de chegar.',
     horario: [
-      { h: '09:30', txt: 'Saída do hotel. Paragem no aeroporto para apanhar a família do Jorge (voo EJU6831, aterrou 09:05).' },
-      { h: '10:15', txt: 'Grupo completo (22) na Marina do Funchal.' },
+      { h: '08:30', txt: 'Saída do hotel (grupo 1) em direção ao aeroporto.' },
+      { h: '09:30', txt: 'Paragem no aeroporto para apanhar a família do Jorge (voo EJU6831, aterrou 09:05). Grupo completo (22) reagrupa-se aqui.' },
+      { h: '10:45', txt: 'Casas Típicas de Santana — as casinhas triangulares coloridas.' },
+      { h: '11:30', txt: 'Pico das Pedras → início do passeio (o autocarro não chega às Queimadas).' },
+      { h: '13:30', txt: 'Almoço em Santana (ver sugestões).' },
+      { h: '15:30', txt: 'Ribeiro Frio — posto florestal, viveiro de trutas, miradouros.' },
+      { h: '17:30', txt: 'Regresso ao hotel.' },
+      { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
+    ],
+    trilho: {
+      nome: 'Um Caminho para Todos (PR9.1) · Pico das Pedras → Queimadas',
+      tempo: '~2,1 km · ~45 min só de ida (~1h30 ida e volta com paragens)',
+      esforco: 'Fácil · caminho largo, plano e protegido (vai dos 870 aos 890 m), pensado para ser acessível a todas as idades — ideal com bebé ao colo e crianças. Termina nas Queimadas, com a Casa das Tradições (casa típica de colmo). Quem quiser muito mais pode seguir para o Caldeirão Verde, mas é longo (5-6h, com túneis) e não recomendado com crianças pequenas.',
+      link: 'https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-91-levada-do-caldeirao-verde-um-caminho-para-todos/',
+    },
+    almoco: [
+      { nome: 'Quinta do Furão', desc: 'Vista de mar deslumbrante, duas salas grandes e terraço para grupos. Cozinha regional cuidada. Email de reservas próprio (~€25/pessoa).', grupo: 'Ideal para grupos · reservar por email', maps: 'Quinta do Furão Santana Madeira' },
+      { nome: 'Adega do Compadre (Santana)', desc: 'Gem local na rua principal, comida caseira, preços ótimos. Mais pequeno — confirmar mesa para 22 ao reservar.', grupo: 'Pequeno · confirmar 22 lugares', maps: 'Adega do Compadre Santana Madeira' },
+    ],
+    locais: [
+      { nome: 'Casas Típicas de Santana', placeId: PLACES.santana },
+      { nome: 'Parque das Queimadas', placeId: PLACES.queimadas },
+      { nome: 'Ribeiro Frio', placeId: PLACES.ribeiroFrio },
+    ],
+  },
+  {
+    day: 'Seg 7/9',
+    theme: 'Mar & Leste',
+    prog: 'Dia ao mar e ao leste: passeio de barco para ver golfinhos e baleias de manhã, e à tarde os miradouros da Ponta de São Lourenço, no extremo leste da ilha.',
+    horario: [
+      { h: '09:30', txt: 'Saída do hotel para a Marina do Funchal.' },
+      { h: '10:00', txt: 'Marina do Funchal — embarque.' },
       { h: '10:30', txt: 'Passeio de barco — golfinhos e baleias (catamarã, ~2h30). Reservar com antecedência.' },
       { h: '13:30', txt: 'Almoço no Funchal / a caminho do leste (ver sugestões).' },
       { h: '15:00', txt: 'Ponta de São Lourenço — miradouros e paisagem vulcânica. Versão curta do trilho.' },
@@ -462,35 +492,6 @@ const programa = [
     locais: [
       { nome: 'Marina do Funchal', placeId: 'Marina do Funchal' },
       { nome: 'Ponta de São Lourenço', placeId: PLACES.pontaSL },
-    ],
-  },
-  {
-    day: 'Seg 7/9',
-    theme: 'Norte · Santana',
-    prog: 'Dia no norte verdejante: as casas típicas de Santana, um passeio acessível na zona das Queimadas/Pico das Pedras e o posto florestal do Ribeiro Frio.',
-    horario: [
-      { h: '09:30', txt: 'Saída do hotel para Santana.' },
-      { h: '10:45', txt: 'Casas Típicas de Santana — as casinhas triangulares coloridas.' },
-      { h: '11:30', txt: 'Pico das Pedras → início do passeio (o autocarro não chega às Queimadas).' },
-      { h: '13:30', txt: 'Almoço em Santana (ver sugestões).' },
-      { h: '15:30', txt: 'Ribeiro Frio — posto florestal, viveiro de trutas, miradouros.' },
-      { h: '17:30', txt: 'Regresso ao hotel.' },
-      { h: '20:00', txt: 'Jantar no hotel (meia pensão).' },
-    ],
-    trilho: {
-      nome: 'Um Caminho para Todos (PR9.1) · Pico das Pedras → Queimadas',
-      tempo: '~2,1 km · ~45 min só de ida (~1h30 ida e volta com paragens)',
-      esforco: 'Fácil · caminho largo, plano e protegido (vai dos 870 aos 890 m), pensado para ser acessível a todas as idades — ideal com bebé ao colo e crianças. Termina nas Queimadas, com a Casa das Tradições (casa típica de colmo). Quem quiser muito mais pode seguir para o Caldeirão Verde, mas é longo (5-6h, com túneis) e não recomendado com crianças pequenas.',
-      link: 'https://visitmadeira.com/en/what-to-do/nature-seekers/activities/hiking/pr-91-levada-do-caldeirao-verde-um-caminho-para-todos/',
-    },
-    almoco: [
-      { nome: 'Quinta do Furão', desc: 'Vista de mar deslumbrante, duas salas grandes e terraço para grupos. Cozinha regional cuidada. Email de reservas próprio (~€25/pessoa).', grupo: 'Ideal para grupos · reservar por email', maps: 'Quinta do Furão Santana Madeira' },
-      { nome: 'Adega do Compadre (Santana)', desc: 'Gem local na rua principal, comida caseira, preços ótimos. Mais pequeno — confirmar mesa para 22 ao reservar.', grupo: 'Pequeno · confirmar 22 lugares', maps: 'Adega do Compadre Santana Madeira' },
-    ],
-    locais: [
-      { nome: 'Casas Típicas de Santana', placeId: PLACES.santana },
-      { nome: 'Parque das Queimadas', placeId: PLACES.queimadas },
-      { nome: 'Ribeiro Frio', placeId: PLACES.ribeiroFrio },
     ],
   },
   {
@@ -1072,8 +1073,8 @@ const categorias = {
     formula: 'Soma dos 6 dias de serviço (com IVA 4%), repartida por dia',
     linhas: [
       { txt: '5/9 · Transfer de chegada (aeroporto → hotel)', val: 101.30 * 1.04, sub: '÷ 17 · minibus 20 lugares (Jorge ainda não chegou)' },
-      { txt: '6/9 · Aeroporto, Marina, Ponta de São Lourenço', val: 389.26 * 1.04, sub: '÷ 22' },
-      { txt: '7/9 · Santana, Pico das Pedras, Ribeiro Frio', val: 378.29 * 1.04, sub: '÷ 22' },
+      { txt: '6/9 · Aeroporto, Santana, Pico das Pedras, Ribeiro Frio', val: 389.26 * 1.04, sub: '÷ 22' },
+      { txt: '7/9 · Marina do Funchal, Ponta de São Lourenço', val: 378.29 * 1.04, sub: '÷ 22' },
       { txt: '8/9 · Cabo Girão, Câmara de Lobos, Calheta', val: 378.29 * 1.04, sub: '÷ 22' },
       { txt: '9/9 · Paúl da Serra, Fanal, Porto Moniz', val: 378.29 * 1.04, sub: '÷ 22' },
       { txt: '10/9 · Transfer de partida (hotel → aeroporto)', val: 101.30 * 1.04, sub: '÷ 17 · minibus 20 lugares (só quem parte)' },
