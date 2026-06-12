@@ -1303,7 +1303,7 @@ const reembolsosVoos = [
     ],
   },
   {
-    familia: 'Farrulo', grupo: 1,
+    familia: 'Farrulo', grupo: 1, pago: true,
     nota: 'Manuel R. e Conceição · 1 mala dividida por 2',
     pessoas: [
       { nome: 'Manuel R.',  voo: 161.88, lugar: 17.48, mala: 20.49, pago: true },
@@ -1338,7 +1338,7 @@ const reembolsosVoos = [
     ],
   },
   {
-    familia: 'Ana Maria', grupo: 1,
+    familia: 'Ana Maria', grupo: 1,, pago: true,
     nota: 'Filipe e Ana Maria · 1 mala dividida por 2',
     pessoas: [
       { nome: 'Filipe',    voo: 161.88, lugar: 17.48, mala: 20.49, pago: true },
