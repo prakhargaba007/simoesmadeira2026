@@ -31,7 +31,7 @@ O site vai ficar em: **https://adrianoapmartins.github.io/simoesmadeira2026**
 
 - O ficheiro **.nojekyll** (vazio) já está incluído — não o apagues. Garante que
   o GitHub serve a pasta `docs/` com os recibos PDF sem interferência do Jekyll.
-- Mantém **todos os ficheiros na raiz** do repositório, incluindo a pasta `docs/`.
+- Mantõm **todos os ficheiros na raiz** do repositório, incluindo a pasta `docs/`.
 
 ## Palavra-passe
 
@@ -40,7 +40,7 @@ constante `PASSWORD`. Não está escrita aqui de propósito — o repositório �
 público. Para a mudares, edita o valor de `PASSWORD` no `app.js`.
 
 ⚠️ É um gate cosmético, não segurança real (está no JavaScript, do lado do
-cliente). Para uma viagem em família privada está bem; não uses para nada
+cliente). Para uma viagem em familia privada está bem; não uses para nada
 confidencial.
 
 ## Preview no WhatsApp
@@ -62,8 +62,9 @@ Os recibos easyJet (PDF) estão na pasta `docs/` e abrem a partir da tab Pagamen
 
 ## Marcar pagamentos como pagos
 
-Quando uma família acertar contas, edita o `app.js`:
-procura `const reembolsos` e muda `paga: false` → `paga: true` na linha dessa família.
+Quando uma familia acertar contas, edita o `app.js`:
+procura `const reembolsosVoos` e muda `pago: false` → `pago: true` na linha da(s) pessoa(s) dessa família.
+Podes marcar cada membro individualmente — o estado da família (`pago`, `parcial` ou `por pagar`) é calculado automaticamente.
 Depois faz commit/push (ou re-upload) e o GitHub Pages atualiza sozinho.
 
 ## Estrutura
