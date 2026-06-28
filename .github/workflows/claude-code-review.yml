@@ -1,0 +1,14 @@
+name: Claude Code Review
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+jobs:
+  claude-review:
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+    uses: adrianoapmartins/.github/.github/workflows/claude-code-review.yml@main
+    secrets: inherit
